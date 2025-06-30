@@ -6037,7 +6037,7 @@ h6.post-title {
   font-weight: 700;
   min-height: 45px;
   border: 1px solid #e2e9e1;
-  border-right: none;
+  /*border-right: none;*/
   width: 140px;
   padding: 3px 35px 3px 20px;
   border-radius: 4px 0 0 4px;
@@ -9818,14 +9818,16 @@ span.fi-rs-apps {
     padding: 10px 20px;
     border-bottom: 1px solid #e2e9e1;
   }
+  /*
   .mobile-header-wrapper-style
     .mobile-header-wrapper-inner
     .mobile-header-top
     .mobile-header-logo
     a
     img {
-    /* width: 80px; */
+    width: 80px; 
   }
+  */
   .mobile-header-wrapper-style
     .mobile-header-wrapper-inner
     .mobile-header-content-area {

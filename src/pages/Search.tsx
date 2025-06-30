@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
+import SearchProduct from "../components/SearchProduct.tsx";
 import { NavLink } from "react-router-dom";
-import ShopProduct from "../components/ShopProduct.tsx";
 import axios from "axios";
 import ScrollToTop from "../components/ScrollToTop.tsx";
 import { urlApp } from "../components/Variables.tsx";
 
-function Shop() {
+function Search() {
   type Subcategory = {
     Category_id: number;
     Category_Name: string;
@@ -45,7 +45,7 @@ function Shop() {
               <a href="./" rel="nofollow">
                 Accueil
               </a>
-              <span></span> Shop
+              <span></span> Recherche
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@ function Shop() {
             <div className="row">
               <div className="col-lg-9">
                 <div className="row product-grid-3">
-                  <ShopProduct />
+                  <SearchProduct />
                 </div>
               </div>
               <div className="col-lg-3 primary-sidebar sticky-sidebar">
@@ -83,11 +83,10 @@ function Shop() {
             </div>
           </div>
         </section>
-
         <Footer />
       </main>
     </>
   );
 }
 
-export default Shop;
+export default Search;

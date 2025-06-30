@@ -1,25 +1,89 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import "../assets/css/main.css";
-import { phoneNumber, email } from "./Variables";
-import flagImg from "../assets/imgs/theme/flag-en.png";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  phoneNumber,
+  email,
+  facebookurl,
+  twitterurl,
+  instagramurl,
+  youtubeurl,
+} from "./Variables";
 import logoOne from "../assets/imgs/theme/logoone.png";
 import heartShopping from "../assets/imgs/theme/icons/icon-heart.svg";
 import cartShopping from "../assets/imgs/theme/icons/icon-cart.svg";
 import logo from "../assets/imgs/theme/logo.svg";
-import facebook from "../assets/imgs/theme/icons/icon-facebook.svg";
-import twitter from "../assets/imgs/theme/icons/icon-twitter.svg";
-import instagram from "../assets/imgs/theme/icons/icon-instagram.svg";
-import youtube from "../assets/imgs/theme/icons/icon-youtube.svg";
 
-//import "../App.css";
+import facebook from "../assets/imgs/icons/facebook.png";
+import instagram from "../assets/imgs/icons/instagram.png";
+import youtube from "../assets/imgs/icons/youtube.png";
+import twitter from "../assets/imgs/icons/twitter.png";
+import Modal from "./Modal.tsx";
+import axios from "axios";
+import "../assets/css/main.css";
 
 function Menu() {
-  //false class = "mobile-header-active mobile-header-wrapper-style"
-  //True class = "mobile-header-active mobile-header-wrapper-style sidebar-visible"
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleCategory, setIsVisibleCategory] = useState(false);
   const [isVisibleCategoryMobile, setIsVisibleCategoryMobile] = useState(false);
+
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const navigate = useNavigate();
+  let userName = localStorage.getItem("userName");
+  let imgprofile = localStorage.getItem("userAvatar");
+  //Search handle data
+  //Handle category change box
+
+  const handleChangeCategory = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setCategory(event.target.value);
+  };
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //Checking if user did not select the category option
+
+    let urlapi = "";
+    if (category == "") {
+      urlapi = `https://inovsell.com/productsearch.php?query=${query}`;
+    } else {
+      urlapi = `https://inovsell.com/productsearch.php?query=${query}&category=${category}`;
+    }
+
+    // Example API call — replace this URL with your real endpoint
+    const response = await fetch(urlapi);
+    const data = await response.json();
+
+    // Pass data through navigation state
+    navigate("/Search", { state: { results: data, query, category } });
+  };
+
+  type Subcategory = {
+    Category_id: number;
+    Category_Name: string;
+  };
+
+  const [categoryList, setCategoryList] = useState<Subcategory[]>([]);
+  //const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCategoryList = async () => {
+      try {
+        const response = await axios.get<Subcategory[]>(
+          `https://inovsell.com/productcategorylist.php`
+        );
+        setCategoryList(response.data);
+        //   console.log("same category " + response.data);
+      } catch (err) {
+        //setError("Failed to fetch samecategories" + err);
+      } finally {
+        //setLoading(false);
+      }
+    };
+
+    fetchCategoryList();
+  });
+
   return (
     <>
       <header className="header-area header-style-3 header-height-2">
@@ -55,24 +119,38 @@ function Menu() {
                 <div className="header-info header-info-right">
                   <ul>
                     <li>
-                      <a className="language-dropdown-active" href="#">
+                      <a href="#">
                         {" "}
                         <i className="fi-rs-world"></i> Français{" "}
-                        <i className="fi-rs-angle-small-down"></i>
                       </a>
-
-                      <ul className="language-dropdown">
-                        <li>
-                          <a href="#">
-                            <img src={flagImg} alt="flag" />
-                            Anglais
-                          </a>
-                        </li>
-                      </ul>
                     </li>
                     <li>
-                      <i className="fi-rs-user"></i>
-                      <a href="app.php">user login</a>
+                      {userName ? (
+                        <>
+                          <img
+                            src={imgprofile || "assets/imgs/profile.png"}
+                            alt="Profil"
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              marginRight: "5px",
+                            }}
+                          />
+
+                          <NavLink to="/App">{userName}</NavLink>
+                        </>
+                      ) : (
+                        <>
+                          <i className="fi-rs-user"></i>
+                          <a
+                            href="#"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                          >
+                            Compte
+                          </a>
+                        </>
+                      )}
                     </li>
                   </ul>
                 </div>
@@ -90,37 +168,48 @@ function Menu() {
               </div>
               <div className="header-right">
                 <div className="search-style-2">
-                  <form action="search.php">
-                    <select className="select-active" name="category">
+                  <form onSubmit={handleSearch}>
+                    <select
+                      className="select-active"
+                      name="category"
+                      value={category}
+                      onChange={handleChangeCategory}
+                    >
                       <option>Catégories</option>
-
-                      <option value=""></option>
+                      {categoryList.map((productdata, index) => (
+                        <option value={productdata.Category_Name} key={index}>
+                          {productdata.Category_Name}
+                        </option>
+                      ))}
                     </select>
                     <input
                       type="text"
                       name="itemsearch"
                       placeholder="Cherche ici..."
+                      value={query}
+                      autoComplete="off"
+                      onChange={(e) => setQuery(e.target.value)}
                     />
                   </form>
                 </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
                     <div className="header-action-icon-2">
-                      <a href="wishlist.php">
+                      <NavLink to="/Whitelist">
                         <img
                           className="svgInject"
                           alt="Evara"
                           src={heartShopping}
                         />
-                      </a>
+                      </NavLink>
                     </div>
                     <div className="header-action-icon-2">
-                      <a className="mini-cart-icon" href="cart.php">
+                      <NavLink to="/Cart" className="mini-cart-icon">
                         <img alt="Evara" src={cartShopping} />
                         <span className="pro-count blue" id="cartCountone">
                           0
                         </span>
-                      </a>
+                      </NavLink>
                     </div>
                   </div>
                 </div>
@@ -154,17 +243,15 @@ function Menu() {
                     }
                   >
                     <ul>
-                      <li>
-                        <NavLink to="/categorytype?shop">
-                          <i className="fi-rs-angle-right"></i>Shop
-                        </NavLink>
-                        <NavLink to="/categorytype?Shoes">
-                          <i className="fi-rs-angle-right"></i>Shoes
-                        </NavLink>
-                        <NavLink to="/categorytype?Mobile">
-                          <i className="fi-rs-angle-right"></i>Mobile
-                        </NavLink>
-                      </li>
+                      {categoryList.map((productdata) => (
+                        <li key={productdata.Category_id}>
+                          <NavLink
+                            to={"/Categorytype?q=" + productdata.Category_Name}
+                          >
+                            {productdata.Category_Name}
+                          </NavLink>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -218,15 +305,24 @@ function Menu() {
                       </li>
 
                       <li>
-                        <NavLink
-                          to="/app"
-                          end
-                          className={({ isActive }) =>
-                            isActive ? "active" : ""
-                          }
-                        >
-                          Compte
-                        </NavLink>
+                        {userName ? (
+                          <NavLink
+                            to="/App"
+                            end
+                            className={({ isActive }) =>
+                              isActive ? "active" : ""
+                            }
+                          >
+                            Profile
+                          </NavLink>
+                        ) : (
+                          <a
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                          >
+                            Compte
+                          </a>
+                        )}
                       </li>
                     </ul>
                   </nav>
@@ -235,7 +331,7 @@ function Menu() {
               <div className="hotline d-none d-lg-block">
                 <p>
                   <i className="fi-rs-headset"></i>
-                  <span>Hotline</span> 1900 - 888{" "}
+                  <span>Assistance </span> 24h/24{" "}
                 </p>
               </div>
 
@@ -297,11 +393,14 @@ function Menu() {
           </div>
           <div className="mobile-header-content-area">
             <div className="mobile-search search-style-3 mobile-header-border">
-              <form action="search">
+              <form onSubmit={handleSearch}>
                 <input
                   type="text"
                   name="itemsearch"
                   placeholder="Cherche ici..."
+                  value={query}
+                  autoComplete="off"
+                  onChange={(e) => setQuery(e.target.value)}
                 />
                 <button type="submit">
                   <i className="fi-rs-search"></i>
@@ -326,29 +425,15 @@ function Menu() {
                   }
                 >
                   <ul>
-                    <li>
-                      <NavLink
-                        to="/categorytype?shop"
-                        end
-                        className={({ isActive }) => (isActive ? "active" : "")}
-                      >
-                        <i className="fi-rs-angle-right"></i>Shop
-                      </NavLink>
-                      <NavLink
-                        to="/categorytype?Shoes"
-                        end
-                        className={({ isActive }) => (isActive ? "active" : "")}
-                      >
-                        <i className="fi-rs-angle-right"></i>Shoes
-                      </NavLink>
-                      <NavLink
-                        to="/categorytype?Mobile"
-                        end
-                        className={({ isActive }) => (isActive ? "active" : "")}
-                      >
-                        <i className="fi-rs-angle-right"></i>Mobile
-                      </NavLink>
-                    </li>
+                    {categoryList.map((productdata) => (
+                      <li key={productdata.Category_id}>
+                        <NavLink
+                          to={"/Categorytype?q=" + productdata.Category_Name}
+                        >
+                          {productdata.Category_Name}
+                        </NavLink>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -389,70 +474,61 @@ function Menu() {
 
                   <li>
                     <span className="menu-expand"></span>
-
                     <NavLink
-                      to="/app"
+                      to="/contact"
                       end
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
-                      Compte
+                      Contact
                     </NavLink>
                   </li>
 
-                  <li className="menu-item-has-children">
+                  <li>
                     <span className="menu-expand"></span>
-                    <a href="#">Langue</a>
-                    <ul className="dropdown">
-                      <li>
-                        <NavLink to="/">French</NavLink>
-                      </li>
-                    </ul>
+
+                    {userName ? (
+                      <NavLink
+                        to="/App"
+                        end
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                      >
+                        Profile
+                      </NavLink>
+                    ) : (
+                      <a data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Compte
+                      </a>
+                    )}
                   </li>
                 </ul>
               </nav>
             </div>
-            <div className="mobile-header-info-wrap mobile-header-border">
-              <div className="single-mobile-header-info mt-30">
-                <NavLink
-                  to="/contact"
-                  end
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  Localisation{" "}
-                </NavLink>
-              </div>
-              <div className="single-mobile-header-info">
-                <NavLink
-                  to="app"
-                  end
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  Compte{" "}
-                </NavLink>
-              </div>
-              <div className="single-mobile-header-info">
-                <a href={"tel:" + phoneNumber}>{phoneNumber}</a>
-              </div>
-            </div>
+            <div className="mobile-header-info-wrap mobile-header-border"></div>
             <div className="mobile-social-icon">
               <h5 className="mb-15 text-grey-4">Suivez-nous</h5>
-              <a href="#">
-                <img src={facebook} alt="" />
+              <a href={facebookurl}>
+                <img src={facebook} alt="facebook" />
               </a>
-              <a href="#">
-                <img src={twitter} alt="" />
+              <a href={twitterurl}>
+                <img src={twitter} alt="twitter" width={24} height={24} />
               </a>
-              <a href="#">
-                <img src={instagram} alt="" />
+              <a href={instagramurl}>
+                <img src={instagram} alt="instagram" width={24} height={24} />
               </a>
 
-              <a href="#">
-                <img src={youtube} alt="" />
+              <a href={youtubeurl}>
+                <img src={youtube} alt="youtube" width={24} height={24} />
               </a>
             </div>
           </div>
         </div>
       </div>
+
+      <Modal
+        id="exampleModal"
+        title="Se connecter"
+        body="Ceci est le contenu de la modal Bootstrap."
+      />
     </>
   );
 }

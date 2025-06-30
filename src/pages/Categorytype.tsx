@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import { NavLink } from "react-router-dom";
-import ShopProduct from "../components/ShopProduct.tsx";
-import axios from "axios";
+import ProductCategory from "../components/ProductCategory.tsx";
 import ScrollToTop from "../components/ScrollToTop.tsx";
+import axios from "axios";
 import { urlApp } from "../components/Variables.tsx";
 
-function Shop() {
+function Categorytype() {
   type Subcategory = {
     Category_id: number;
     Category_Name: string;
@@ -23,7 +23,7 @@ function Shop() {
           `${urlApp}productcategorylist.php`
         );
         setCategoryList(response.data);
-        console.log("same category " + response.data);
+        //console.log("same category " + response.data);
       } catch (err) {
         //setError("Failed to fetch samecategories" + err);
       } finally {
@@ -55,7 +55,7 @@ function Shop() {
             <div className="row">
               <div className="col-lg-9">
                 <div className="row product-grid-3">
-                  <ShopProduct />
+                  <ProductCategory />
                 </div>
               </div>
               <div className="col-lg-3 primary-sidebar sticky-sidebar">
@@ -90,4 +90,4 @@ function Shop() {
   );
 }
 
-export default Shop;
+export default Categorytype;

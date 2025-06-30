@@ -179,13 +179,13 @@
 }
 
 .form {
-  position: absolute;
+  /*position: absolute;*/
   max-width: 430px;
   width: 100%;
-  padding: 30px;
+  padding: 30px auto;
   border-radius: 6px;
   background: #fff;
-  border: 1px solid #eee;
+  /*border: 1px solid #eee;*/
 }
 .form.signup {
   opacity: 1;
@@ -204,6 +204,11 @@ header {
   font-weight: 600;
   color: #232836;
   text-align: center;
+}
+button:disabled {
+  color: #000;
+  background-color: #e30613;
+  opacity: 0.6;
 }
 form {
   margin-top: 25px;
@@ -231,7 +236,7 @@ form {
 }
 .field input:focus {
   border-bottom-width: 3px;
-  border-bottom-color: #146c94;
+  border-bottom-color: #e30613 !important;
 }
 .form .fi-rs-eye {
   position: absolute;
@@ -245,7 +250,7 @@ form {
 }
 .field button {
   color: #fff;
-  background-color: #146c94 !important;
+  background-color: #e30613 !important;
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -286,6 +291,25 @@ form {
   color: #8b8b8b;
   padding: 0 15px;
 }
+/* Loader Product */
+
+/* styles.css or module */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.product-skeleton {
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* End of loader */
+
 .media-options a {
   display: flex;
   align-items: center;
@@ -293,7 +317,7 @@ form {
 }
 a.facebook {
   color: #fff;
-  background-color: #146c94 !important;
+  background-color: #e30613 !important;
 }
 a.facebook .facebook-icon {
   height: 28px;
@@ -403,7 +427,7 @@ a.google span {
 }
 
 ::selection {
-  background-color: #146c94;
+  background-color: #e30613;
   color: #fff;
 }
 
@@ -438,8 +462,4 @@ a.google span {
 
 .header-info > ul > li a:hover {
   color: #fff !important;
-}
-
-.mobile-social-icon {
-  display: none;
 }

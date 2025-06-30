@@ -1,14 +1,85 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../assets/css/main.css";
 import emailIcon from "../assets/imgs/theme/icons/email.svg";
 import logo from "../assets/imgs/theme/logo.svg";
-import { phoneNumber, email, address, copyRight } from "./Variables";
+import {
+  phoneNumber,
+  email,
+  address,
+  copyRight,
+  facebookurl,
+  twitterurl,
+  instagramurl,
+  youtubeurl,
+} from "./Variables";
 import storeImg from "../assets/imgs/theme/app-store.jpg";
 import appImg from "../assets/imgs/theme/payment-method.png";
+import { urlApp } from "../components/Variables";
+import facebook from "../assets/imgs/icons/facebook.png";
+import instagram from "../assets/imgs/icons/instagram.png";
+import youtube from "../assets/imgs/icons/youtube.png";
+import twitter from "../assets/imgs/icons/twitter.png";
 
 //import "../App.css";
 
 function Footer() {
+  const [emailBox, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [btnOpacity, setBtnOpacity] = useState(true);
+  const [messageSuccess, setmessageSuccess] = useState("");
+
+  const handleNews = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (email == "") {
+      setMessage("Veuillez remplir votre email.");
+      return false;
+    }
+
+    setBtnOpacity(false);
+
+    try {
+      const response = await fetch(`${urlApp}productnews.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          emailBox,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setmessageSuccess(
+          "Merci ! Vous êtes maintenant abonné(e) à notre newsletter."
+        );
+        setMessage("");
+        setEmail("");
+      } else {
+        setBtnOpacity(true);
+        setmessageSuccess("");
+        if (result.message == "Invalid empty email") {
+          setMessage("L'email ne peut pas être vide.");
+        }
+
+        if (result.message == "Invalid email") {
+          setMessage("Veuillez saisir une adresse e-mail valide.");
+        }
+
+        console.log(result.message + " " + result.success);
+      }
+    } catch (error) {
+      setMessage(
+        "Impossible d'établir une connexion avec le serveur. Veuillez réessayer plus tard."
+      );
+      console.error("Login error:", error);
+      setBtnOpacity(true);
+    }
+  };
+
   return (
     <>
       <section className="newsletter p-30 text-white wow fadeIn animated bg">
@@ -24,29 +95,46 @@ function Footer() {
                   >
                     Inscrivez-vous à la newsletter
                   </h4>
-                  <h4
-                    id="newsmsg"
-                    style={{ marginLeft: "20px", color: "#fff" }}
-                  ></h4>
+
+                  {message && <h4 className="text-danger">{message}</h4>}
+                  {messageSuccess && (
+                    <h4 className="text-success">{messageSuccess}</h4>
+                  )}
                 </div>
               </div>
             </div>
             <div className="col-lg-5">
-              <form className="form-subcriber d-flex wow fadeIn animated">
+              <form
+                className="form-subcriber d-flex wow fadeIn animated"
+                onSubmit={handleNews}
+              >
                 <input
                   type="email"
                   id="email"
                   className="form-control bg-white font-small"
                   placeholder="Entrer votre Email"
-                  required
+                  value={emailBox}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <button
-                  className="btn bg-dark text-white"
-                  type="submit"
-                  id="nbtn"
-                >
-                  Subscribe
-                </button>
+
+                {btnOpacity ? (
+                  <button
+                    className="btn bg-dark text-white"
+                    type="submit"
+                    id="nbtn"
+                  >
+                    Subscribe
+                  </button>
+                ) : (
+                  <button
+                    className="btn bg-dark text-white"
+                    type="submit"
+                    id="nbtn"
+                    disabled
+                  >
+                    Subscribe
+                  </button>
+                )}
               </form>
             </div>
           </div>
@@ -93,30 +181,23 @@ function Footer() {
                   className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0"
                   style={{ display: "block !important" }}
                 >
-                  <a href="https://web.facebook.com/profile.php?id=100095673456226">
-                    <img
-                      src="assets/imgs/theme/icons/icon-facebook.svg"
-                      alt=""
-                    />
+                  <a href={facebookurl}>
+                    <img src={facebook} alt="facebook" />
                   </a>
-                  <a href="https://twitter.com/inovsell">
-                    <img
-                      src="assets/imgs/theme/icons/icon-twitter.svg"
-                      alt=""
-                    />
+                  <a href={twitterurl}>
+                    <img src={twitter} alt="twitter" width={24} height={24} />
                   </a>
-                  <a href="https://www.instagram.com/inovsell/">
+                  <a href={instagramurl}>
                     <img
-                      src="assets/imgs/theme/icons/icon-instagram.svg"
-                      alt=""
+                      src={instagram}
+                      alt="instagram"
+                      width={24}
+                      height={24}
                     />
                   </a>
 
-                  <a href="https://www.youtube.com/@InovSell">
-                    <img
-                      src="assets/imgs/theme/icons/icon-youtube.svg"
-                      alt=""
-                    />
+                  <a href={youtubeurl}>
+                    <img src={youtube} alt="youtube" width={24} height={24} />
                   </a>
                 </div>
               </div>
@@ -163,10 +244,10 @@ function Footer() {
                 <li></li>
 
                 <li>
-                  <NavLink to="cart">Voir Cart</NavLink>
+                  <NavLink to="/Cart">Voir Cart</NavLink>
                 </li>
                 <li>
-                  <NavLink to="wishlist">Voir Wishlist</NavLink>
+                  <NavLink to="/Whitelist">Voir Wishlist</NavLink>
                 </li>
               </ul>
             </div>

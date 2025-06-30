@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import { NavLink } from "react-router-dom";
-import ShopProduct from "../components/ShopProduct.tsx";
+import ShopWhitelist from "../components/ShopWhitelist.tsx";
 import axios from "axios";
 import ScrollToTop from "../components/ScrollToTop.tsx";
 import { urlApp } from "../components/Variables.tsx";
 
-function Shop() {
+function Whistlist() {
   type Subcategory = {
     Category_id: number;
     Category_Name: string;
@@ -55,7 +55,7 @@ function Shop() {
             <div className="row">
               <div className="col-lg-9">
                 <div className="row product-grid-3">
-                  <ShopProduct />
+                  <ShopWhitelist />
                 </div>
               </div>
               <div className="col-lg-3 primary-sidebar sticky-sidebar">
@@ -90,4 +90,4 @@ function Shop() {
   );
 }
 
-export default Shop;
+export default Whistlist;

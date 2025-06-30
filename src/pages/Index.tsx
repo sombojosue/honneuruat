@@ -3,13 +3,20 @@ import Banner from "../components/Banner.tsx";
 import Footer from "../components/Footer.tsx";
 import Pub from "../components/Pub.tsx";
 import Product from "../components/Product.tsx";
+import ScrollToTop from "../components/ScrollToTop.tsx";
 
 function Index() {
   return (
     <>
+      <ScrollToTop />
       <Menu />
       <main className="main">
-        <Banner />
+        <div className="container">
+          <div className="row my-3">
+            <Banner />
+          </div>
+        </div>
+
         <section className="product-tabs section-padding wow fadeIn animated">
           <div className="container">
             <div className="tab-header">
