@@ -383,10 +383,6 @@ a.google span {
     margin-top: 12px;
   }
 
-  .product-img img {
-    height: 195px !important;
-  }
-
   .row > * {
     padding-right: 8px !important;
     padding-left: 8px !important;
@@ -404,7 +400,6 @@ a.google span {
   .product-cart-wrap .product-content-wrap h2 {
     font-size: 16px;
     font-weight: 600;
-    height: 50px;
   }
 
   #slide-mobile {

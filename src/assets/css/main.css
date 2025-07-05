@@ -3595,6 +3595,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-action-1 button,
+.product-cart-wrap .product-action-update button,
 .product-cart-wrap .product-action-1 a.action-btn {
   width: 40px;
   height: 40px;

@@ -22,13 +22,13 @@ function ShopWhitelist() {
   const [data, setData] = useState<Product[]>([]);
 
   //cheking if user is logging into the server
-  let user = localStorage.getItem("userEmail");
-  if (user) {
+  const userId = localStorage.getItem("userToken") || "";
+  if (userId) {
     useEffect(() => {
       const fetchProducts = async () => {
         try {
           const response = await axios.get<Product[]>(
-            `${urlApp}productwhitelist.php?u=${user}`
+            `${urlApp}productwhitelist.php?u=${userId}`
           );
           setData(response.data);
         } catch (err) {
@@ -47,7 +47,7 @@ function ShopWhitelist() {
   }
 
   //Checking if user is not yet login into the system
-  if (!user)
+  if (!userId)
     return (
       <>
         <div className="col-lg-9">
@@ -151,20 +151,13 @@ function ShopWhitelist() {
                 </NavLink>
               </div>
               <div className="product-action-1">
-                <a
-                  href=""
-                  aria-label="aperçu rapide"
+                <NavLink
+                  to={"/Details?q=" + product.Product_id}
+                  aria-label="Aperçu rapide"
                   className="action-btn hover-up"
                 >
                   <i className="fi-rs-eye"></i>
-                </a>
-
-                <button
-                  aria-label="Ajouter a la Wishlist"
-                  className="action-btn hover-up loaderbtn-"
-                >
-                  <i className="fi-rs-heart"></i>
-                </button>
+                </NavLink>
               </div>
             </div>
             <div className="product-content-wrap">
@@ -179,20 +172,23 @@ function ShopWhitelist() {
                 </NavLink>
               </h2>
 
-              <br />
+              {/*Price and cart section*/}
+              <div className="row mt-2 product-action-update">
+                <div className="col-6 product-price">
+                  <span>{product.Price}$</span>
+                </div>
 
-              <div className="product-price">
-                <span>{product.Price}$</span>
+                <div className="col-6">
+                  <button
+                    aria-label="Ajouter au panier"
+                    className="action-btn hover-up"
+                    style={{ float: "right" }}
+                  >
+                    <i className="fi-rs-shopping-bag-add"></i>
+                  </button>
+                </div>
               </div>
-
-              <div className="product-action-1 show">
-                <a
-                  aria-label="Ajouter au panier"
-                  className="action-btn hover-up"
-                >
-                  <i className="fi-rs-shopping-bag-add"></i>
-                </a>
-              </div>
+              {/* End of price and cart */}
             </div>
           </div>
         </div>

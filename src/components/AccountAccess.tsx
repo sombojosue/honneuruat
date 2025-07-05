@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/imgs/theme/logo.svg";
 import { urlApp } from "./Variables";
@@ -6,6 +7,48 @@ import { urlApp } from "./Variables";
 type LoginFormProps = {
   setActiveForm: (form: string) => void;
 };
+
+//EmailJs configuration
+const SERVICE_ID = "service_cjdxkax";
+const TEMPLATE_ID = "template_eirrw6z";
+const PUBLIC_KEY = "EELIGcK2K6cF7HjKU";
+
+//Icon configuration
+
+const EyeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="19"
+    height="19"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    viewBox="0 0 24 24"
+  >
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const EyeOffIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="19"
+    height="19"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    viewBox="0 0 24 24"
+  >
+    <path d="M17.94 17.94A10.94 10.94 0 0112 20C5 20 1 12 1 12a21.81 21.81 0 014.19-5.94" />
+    <path d="M22.54 12.88A21.81 21.81 0 0012 4c-1.61 0-3.16.38-4.56 1.06" />
+    <line x1="1" y1="1" x2="23" y2="23" />
+  </svg>
+);
 
 const AccountAccess = () => {
   const [activeForm, setActiveForm] = useState("login"); // 'login' | 'password' | 'register'
@@ -73,11 +116,20 @@ const LoginForm = ({ setActiveForm }: LoginFormProps) => {
         //setMessage("Login successful!");
 
         if (result.account_disabled == 0) {
-          // Clean any lingering Bootstrap modal backdrops on mount
+          const modal = document.querySelector(
+            ".modal.show"
+          ) as HTMLElement | null;
+          if (modal) {
+            modal.classList.remove("show");
+            modal.style.display = "none";
+            modal.setAttribute("aria-hidden", "true");
+          }
+
           document.body.classList.remove("modal-open");
-          const backdrops = document.querySelectorAll(".modal-backdrop");
-          backdrops.forEach((backdrop) => backdrop.remove());
-          document.body.style.overflow = "auto"; // reset on unmount
+          document
+            .querySelectorAll(".modal-backdrop")
+            .forEach((el) => el.remove());
+          document.body.style.overflow = "auto";
 
           localStorage.setItem("userName", result.name);
           localStorage.setItem("userAvatar", result.avatar);
@@ -139,11 +191,9 @@ const LoginForm = ({ setActiveForm }: LoginFormProps) => {
           </a>
         </div>
         <div className="col-6">
-          <i
-            className="bx bx-hide fi-rs-eye"
-            onClick={togglePasswordVisibility}
-            style={{ float: "right" }}
-          ></i>
+          <i style={{ float: "right" }} onClick={togglePasswordVisibility}>
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </i>
         </div>
       </div>
       <br />
@@ -181,26 +231,114 @@ const LoginForm = ({ setActiveForm }: LoginFormProps) => {
 };
 
 const PasswordForm = ({ setActiveForm }: LoginFormProps) => {
+  const [username, setUsername] = useState("");
+  const [message, setMessage] = useState("");
+  const [urlValue, setUrlValue] = useState("");
+  const [btnOpacity, setBtnOpacity] = useState(true);
+  const [messageSuccess, setMessageSuccess] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleReset = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!username) {
+      setMessage("Veuillez saisir votre adresse e-mail.");
+      return;
+    }
+
+    setBtnOpacity(false);
+
+    try {
+      const response = await fetch(`${urlApp}productpwdreset.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ username }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setMessage("");
+        const resetLink = `http://localhost:5173/honneuruat/PasswordAccount?usertoken=${result.message}`;
+        setUrlValue(resetLink);
+        // Inject resetLink into hidden input before sending
+        if (formRef.current) {
+          const linkInput = formRef.current.querySelector(
+            "input[name='reset_link']"
+          ) as HTMLInputElement;
+          if (linkInput) linkInput.value = resetLink;
+        }
+        //Sending Email
+        await emailjs.sendForm(
+          SERVICE_ID,
+          TEMPLATE_ID,
+          formRef.current!,
+          PUBLIC_KEY
+        );
+        //End of sending email
+
+        setMessageSuccess(
+          "Un lien de réinitialisation a été envoyé. Veuillez vérifier votre boîte de réception."
+        );
+        setUsername("");
+      } else {
+        setMessageSuccess("");
+        setMessage(
+          result.message === "Invalid email exist"
+            ? "L'adresse e-mail n'existe pas dans notre système."
+            : "Échec de la réinitialisation. Veuillez réessayer."
+        );
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      setMessage("Erreur de connexion au serveur.");
+    } finally {
+      setBtnOpacity(true);
+    }
+  };
+
   return (
-    <form className="border p-4 rounded shadow">
+    <form
+      ref={formRef}
+      className="border p-4 rounded shadow"
+      onSubmit={handleReset}
+    >
+      {messageSuccess && (
+        <div className="alert alert-success">{messageSuccess}</div>
+      )}
+      {message && <div className="alert alert-danger">{message}</div>}
+
       <input
         type="email"
+        name="user_email" // Required for EmailJS template
         placeholder="E-mail"
         className="block w-full mb-2 border p-2 rounded"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
-      <p className="mt-2 mb-2 text-sm text-red-600">
+
+      {/* Hidden fields for EmailJS */}
+      <input type="hidden" name="reset_link" value={urlValue} />
+
+      <p className="text-sm mb-2 text-red-600">
         Après avoir saisi votre adresse e-mail, vous recevrez un lien contenant
         les instructions pour réinitialiser votre compte.
       </p>
+
       <button
         type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded w-full"
+        className={`bg-blue-600 text-white px-4 py-2 rounded w-full ${
+          !btnOpacity ? "opacity-50" : ""
+        }`}
+        disabled={!btnOpacity}
       >
         Confirmer
       </button>
 
       <p className="mt-4 text-center text-sm text-red-600">
-        Vous avez trouve votre compte ?{" "}
+        Vous avez retrouvé votre compte ?{" "}
         <a href="#" onClick={() => setActiveForm("login")}>
           S'identifier
         </a>
@@ -223,7 +361,7 @@ const RegisterForm = ({ setActiveForm }: LoginFormProps) => {
     setShowPassword((prev) => !prev);
   };
 
-  //Submit login form for login account
+  //Submit register form for login account
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -262,11 +400,21 @@ const RegisterForm = ({ setActiveForm }: LoginFormProps) => {
         //setMessage("Login successful!");
         setMessage("");
         // Clean any lingering Bootstrap modal backdrops on mount
+        const modal = document.querySelector(
+          ".modal.show"
+        ) as HTMLElement | null;
+        if (modal) {
+          modal.classList.remove("show");
+          modal.style.display = "none";
+          modal.setAttribute("aria-hidden", "true");
+        }
+
         document.body.classList.remove("modal-open");
-        const backdrops = document.querySelectorAll(".modal-backdrop");
-        backdrops.forEach((backdrop) => backdrop.remove());
-        document.body.style.overflow = "auto"; // reset on unmount
-        // Optionally store token or redirect
+        document
+          .querySelectorAll(".modal-backdrop")
+          .forEach((el) => el.remove());
+        document.body.style.overflow = "auto";
+
         navigate("/Shop");
       } else {
         setBtnOpacity(true);
@@ -316,6 +464,7 @@ const RegisterForm = ({ setActiveForm }: LoginFormProps) => {
     } catch (error) {
       setMessage("Error connecting to the server.");
       console.error("Login error:", error);
+      setBtnOpacity(true);
     }
   };
 
@@ -358,15 +507,14 @@ const RegisterForm = ({ setActiveForm }: LoginFormProps) => {
 
       <div className="row">
         <div className="col-10">
-          Veuillez saisir un mot de passe sécurisé contenant au moins une lettre
-          majuscule, une lettre minuscule, un chiffre et un caractère spécial.
+          Veuillez saisir un mot de passe sécurisé contenant au moins 8
+          caractères, une lettre majuscule, une lettre minuscule, un chiffre et
+          un caractère spécial.
         </div>
         <div className="col-2">
-          <i
-            className="bx bx-hide fi-rs-eye"
-            onClick={togglePasswordVisibility}
-            style={{ float: "right" }}
-          ></i>
+          <i style={{ float: "right" }} onClick={togglePasswordVisibility}>
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </i>
         </div>
       </div>
       <br />

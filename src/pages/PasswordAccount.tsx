@@ -1,10 +1,10 @@
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import ScrollToTop from "../components/ScrollToTop.tsx";
-import Profile from "../components/Profile.tsx";
+import PasswordAccountSet from "../components/PasswordAccountSet.tsx";
 // pages/Home.tsx
 
-function App() {
+function PasswordAccount() {
   return (
     <>
       <ScrollToTop />
@@ -25,7 +25,7 @@ function App() {
           <div className="container pt-25">
             <div className="row">
               <div className="col-lg-12 align-self-center mb-lg-0 mb-4">
-                <Profile />
+                <PasswordAccountSet />
               </div>
             </div>
           </div>
@@ -36,4 +36,4 @@ function App() {
   );
 }
 
-export default App;
+export default PasswordAccount;

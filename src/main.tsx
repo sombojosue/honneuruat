@@ -14,6 +14,7 @@ import Whitelist from "./pages/Whitelist";
 import Cart from "./pages/Cart";
 import App from "./pages/App";
 import NotFound from "./pages/NotFound";
+import PasswordAccount from "./pages/PasswordAccount";
 
 import "./index.css";
 
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
         { path: "Whitelist", element: <Whitelist /> },
         { path: "Cart", element: <Cart /> },
         { path: "App", element: <App /> },
+        { path: "PasswordAccount", element: <PasswordAccount /> },
         { path: "*", element: <NotFound /> },
       ],
     },

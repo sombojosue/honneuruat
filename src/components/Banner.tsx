@@ -42,15 +42,15 @@ const Banner = () => {
         ))}
       </Carousel>
 
-      <div className="col-lg-3 d-lg-block">
-        <div className="banner-img banner-1" id="hidefrommobile">
+      <div className="col-lg-3 d-md-none d-sm-none d-lg-block">
+        <div className="banner-img banner-1">
           <img
             className="border-radius-10"
             src={sliderFour}
             alt="slide image"
           />
         </div>
-        <div className="banner-img banner-2" id="spacemobile">
+        <div className="banner-img banner-2">
           <img
             className="border-radius-10"
             src={sliderFive}

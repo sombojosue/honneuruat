@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { urlApp } from "./Variables";
 import ProductLoader from "./ProductLoader";
+import { addToWishlist } from "./AddToWishlist.tsx";
 
 type Subcategory = {
   Product_name: string;
@@ -12,6 +13,27 @@ type Subcategory = {
   Price: number;
   Category_name: string;
   Product_id: number;
+};
+
+//Create a function to call add to wishlist
+const handleAddToWishlist = async (itemId: number) => {
+  const userId = localStorage.getItem("userToken") || "";
+  if (!userId) {
+    alert("Veuillez vous connecter pour ajouter à la liste de souhaits.");
+    return;
+  }
+
+  try {
+    const response = await addToWishlist(String(itemId), userId);
+    if (response.success) {
+      alert("Produit ajouté à votre liste de souhaits.");
+    } else {
+      alert("Erreur: " + response.message);
+    }
+  } catch (error) {
+    console.error("Wishlist error:", error);
+    alert("Une erreur est survenue lors de l'ajout à la liste.");
+  }
 };
 
 const sanitizeInput = (input: string): string => {
@@ -146,17 +168,18 @@ const ProductCategory: React.FC = () => {
                 </NavLink>
               </div>
               <div className="product-action-1">
-                <a
-                  href=""
-                  aria-label="aperçu rapide"
+                <NavLink
+                  to={"/Details?q=" + product.Product_id}
+                  aria-label="Aperçu rapide"
                   className="action-btn hover-up"
                 >
                   <i className="fi-rs-eye"></i>
-                </a>
+                </NavLink>
 
                 <button
                   aria-label="Ajouter a la Wishlist"
                   className="action-btn hover-up loaderbtn-"
+                  onClick={() => handleAddToWishlist(product.Product_id)}
                 >
                   <i className="fi-rs-heart"></i>
                 </button>
@@ -174,20 +197,23 @@ const ProductCategory: React.FC = () => {
                 </NavLink>
               </h2>
 
-              <br />
+              {/*Price and cart section*/}
+              <div className="row mt-2 product-action-update">
+                <div className="col-6 product-price">
+                  <span>{product.Price}$</span>
+                </div>
 
-              <div className="product-price">
-                <span>{product.Price}$</span>
+                <div className="col-6">
+                  <button
+                    aria-label="Ajouter au panier"
+                    className="action-btn hover-up"
+                    style={{ float: "right" }}
+                  >
+                    <i className="fi-rs-shopping-bag-add"></i>
+                  </button>
+                </div>
               </div>
-
-              <div className="product-action-1 show">
-                <a
-                  aria-label="Ajouter au panier"
-                  className="action-btn hover-up"
-                >
-                  <i className="fi-rs-shopping-bag-add"></i>
-                </a>
-              </div>
+              {/* End of price and cart */}
             </div>
           </div>
         </div>

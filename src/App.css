@@ -318,12 +318,6 @@ a.google span {
   color: #232836;
 }
 
-@media screen and (max-width: 900px) {
-  .smallDeviceHide {
-    display: none !important;
-  }
-}
-
 @media screen and (max-width: 500px) {
   .form {
     padding: 20px 10px;
@@ -377,7 +371,6 @@ a.google span {
   .product-cart-wrap .product-content-wrap h2 {
     font-size: 16px;
     font-weight: 600;
-    height: 50px;
   }
 
   #slide-mobile {
