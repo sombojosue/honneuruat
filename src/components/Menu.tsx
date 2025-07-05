@@ -338,17 +338,17 @@ function Menu() {
               <div className="header-action-right d-block d-lg-none">
                 <div className="header-action-2">
                   <div className="header-action-icon-2">
-                    <a href="./">
+                    <NavLink to="//Whitelist">
                       <img alt="Evara" src={heartShopping} />
-                    </a>
+                    </NavLink>
                   </div>
                   <div className="header-action-icon-2">
-                    <a className="mini-cart-icon" href="shop-cart.html">
+                    <NavLink to="/Cart" className="mini-cart-icon">
                       <img alt="Evara" src={cartShopping} />
                       <span className="pro-count white" id="cartCounttwo">
                         0
                       </span>
-                    </a>
+                    </NavLink>
                   </div>
                   <div
                     className="header-action-icon-2 d-block d-lg-none"
