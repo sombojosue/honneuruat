@@ -261,7 +261,7 @@ const PasswordForm = ({ setActiveForm }: LoginFormProps) => {
 
       if (result.success) {
         setMessage("");
-        const resetLink = `http://localhost:5173/honneuruat/PasswordAccount?usertoken=${result.message}`;
+        const resetLink = `https://sombojosue.github.io/honneuruat/PasswordAccount?usertoken=${result.message}`;
         setUrlValue(resetLink);
         // Inject resetLink into hidden input before sending
         if (formRef.current) {
