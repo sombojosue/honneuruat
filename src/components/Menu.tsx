@@ -338,7 +338,7 @@ function Menu() {
               <div className="header-action-right d-block d-lg-none">
                 <div className="header-action-2">
                   <div className="header-action-icon-2">
-                    <NavLink to="//Whitelist">
+                    <NavLink to="/Whitelist">
                       <img alt="Evara" src={heartShopping} />
                     </NavLink>
                   </div>
