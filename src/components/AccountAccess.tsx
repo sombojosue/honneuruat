@@ -131,9 +131,11 @@ const LoginForm = ({ setActiveForm }: LoginFormProps) => {
             .forEach((el) => el.remove());
           document.body.style.overflow = "auto";
 
-          if (result.avatar.startsWith("https://")) {
+          if (!result.avatar.startsWith("https://")) {
             console.log("Valid HTTPS URL");
             localStorage.setItem("userAvatar", urlApp + result.avatar);
+          } else {
+            localStorage.setItem("userAvatar", result.avatar);
           }
 
           localStorage.setItem("userName", result.name);

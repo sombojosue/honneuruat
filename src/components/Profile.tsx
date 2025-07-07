@@ -424,7 +424,7 @@ const ProfileText: React.FC = () => {
                     {/* Image editing */}
                     <div className="d-flex align-items-center mb-4">
                       <img
-                        src={avatar}
+                        src={avatar || "https://inovsell/profile/profile.png"}
                         alt="Profile"
                         className="img-thumbnail rounded-circle"
                         style={{ width: "220px", height: "220px" }}
