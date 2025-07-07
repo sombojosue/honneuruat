@@ -442,6 +442,11 @@ const RegisterForm = ({ setActiveForm }: LoginFormProps) => {
             "Veuillez saisir un numéro de téléphone valide contenant exactement 10 chiffres."
           );
         }
+
+        if (result.message == "Invalid Phone exist") {
+          setMessage("Numéro de téléphone est déjà utilisée.");
+        }
+
         //Invalid email exist
         if (result.message == "Invalid email exist") {
           setMessage(

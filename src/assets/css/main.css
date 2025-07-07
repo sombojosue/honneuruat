@@ -973,17 +973,17 @@ button[type="submit"] {
   color: #ffffff;
   border: none;
   background-color: #e30613;
-  border: 1px solid #046963;
+  border: 1px solid #e30613;
   border-radius: 5px;
 }
 
 button.submit:hover,
 button[type="submit"]:hover {
-  background-color: #046963 !important;
+  background-color: #e30613 !important;
 }
 
 .btn-brand:hover {
-  background-color: #046963 !important;
+  background-color: #e30613 !important;
 }
 
 .btn-login {

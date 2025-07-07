@@ -10,11 +10,13 @@ import Shop from "./pages/Shop";
 import Search from "./pages/Search";
 import Categorytype from "./pages/Categorytype";
 import Details from "./pages/Details";
-import Whitelist from "./pages/Whitelist";
+import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
 import App from "./pages/App";
 import NotFound from "./pages/NotFound";
 import PasswordAccount from "./pages/PasswordAccount";
+import Term from "./pages/Term";
+import Policy from "./pages/Policy";
 
 import "./index.css";
 
@@ -31,9 +33,11 @@ const router = createBrowserRouter(
         { path: "Search", element: <Search /> },
         { path: "Categorytype", element: <Categorytype /> },
         { path: "Details", element: <Details /> },
-        { path: "Whitelist", element: <Whitelist /> },
+        { path: "Wishlist", element: <Wishlist /> },
         { path: "Cart", element: <Cart /> },
         { path: "App", element: <App /> },
+        { path: "Term", element: <Term /> },
+        { path: "Policy", element: <Policy /> },
         { path: "PasswordAccount", element: <PasswordAccount /> },
         { path: "*", element: <NotFound /> },
       ],

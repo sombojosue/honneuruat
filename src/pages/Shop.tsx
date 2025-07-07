@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import { NavLink } from "react-router-dom";
@@ -37,6 +38,7 @@ function Shop() {
   return (
     <>
       <ScrollToTop />
+
       <Menu />
       <main className="main">
         <div className="page-header breadcrumb-wrap">

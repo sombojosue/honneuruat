@@ -17,9 +17,11 @@ const MyModal: React.FC<MyModalProps> = ({ id, title }) => {
       id={id}
       tabIndex={-1}
       aria-labelledby={`${id}Label`}
-      aria-hidden="true"
+      style={{ zIndex: 99999 }}
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
     >
-      <div className="modal-dialog">
+      <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id={`${id}Label`}>

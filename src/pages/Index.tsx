@@ -9,6 +9,7 @@ function Index() {
   return (
     <>
       <ScrollToTop />
+
       <Menu />
       <main className="main">
         <div className="container">

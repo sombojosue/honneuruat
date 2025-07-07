@@ -70,7 +70,7 @@ function Product() {
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
               <div className="product-img product-img-zoom">
-                <NavLink to={`/Details?q=${product.Product_id}`}>
+                <NavLink to={`/#`}>
                   <img
                     className="default-img resizeimg"
                     src={`${urlApp}${product.Picture}`}

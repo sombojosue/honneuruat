@@ -53,7 +53,7 @@ const DetailsData: React.FC = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       if (!categoryId) {
-        setError("Query ID not found in URL");
+        setError("ID du produit manquant dans l’URL.");
         setLoading(false);
         return;
       }
@@ -72,7 +72,9 @@ const DetailsData: React.FC = () => {
           setBanner(urlApp + response.data[0].Picture);
         }
       } catch (err) {
-        setError("Failed to fetch product details: " + err);
+        setError(
+          "l’identifiant du produit doit contenir uniquement des chiffres."
+        );
       } finally {
         setLoading(false);
       }

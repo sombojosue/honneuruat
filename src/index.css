@@ -1,3 +1,20 @@
+.edit-btn {
+  background-color: #ffcf45 !important;
+  margin-left: 5px;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #ffcf45 !important;
+}
 #slide-mobile {
   display: none;
 }
@@ -73,6 +90,12 @@
 
 .btn__icon--box {
   top: -50%;
+}
+
+.product-cart-wrap .product-content-wrap h2 {
+  font-size: 16px;
+  font-weight: 600;
+  height: 65px;
 }
 
 /* --------- ANIMATION ----------- */
@@ -400,6 +423,7 @@ a.google span {
   .product-cart-wrap .product-content-wrap h2 {
     font-size: 16px;
     font-weight: 600;
+    height: 75px;
   }
 
   #slide-mobile {
@@ -418,6 +442,12 @@ a.google span {
 
   .header-action-2 {
     margin-top: 23px;
+  }
+
+  .product-cart-wrap .product-content-wrap h2 {
+    font-size: 16px;
+    font-weight: 600;
+    height: 70px;
   }
 }
 

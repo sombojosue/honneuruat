@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import { NavLink } from "react-router-dom";
-import ShopWhitelist from "../components/ShopWhitelist.tsx";
+import ShopWhitelist from "../components/ShopWishlist.tsx";
 import axios from "axios";
 import ScrollToTop from "../components/ScrollToTop.tsx";
 import { urlApp } from "../components/Variables.tsx";
 
-function Whistlist() {
+function Wishlist() {
   type Subcategory = {
     Category_id: number;
     Category_Name: string;
@@ -37,6 +38,7 @@ function Whistlist() {
   return (
     <>
       <ScrollToTop />
+
       <Menu />
       <main className="main">
         <div className="page-header breadcrumb-wrap">
@@ -90,4 +92,4 @@ function Whistlist() {
   );
 }
 
-export default Whistlist;
+export default Wishlist;

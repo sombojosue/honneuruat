@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import ScrollToTop from "../components/ScrollToTop.tsx";
@@ -103,6 +104,7 @@ function Contact() {
   return (
     <>
       <ScrollToTop />
+
       <Menu />
       <main className="main">
         <div className="page-header breadcrumb-wrap">

@@ -4,10 +4,10 @@ import { urlApp } from "./Variables.tsx";
 //import { useState } from 'react'
 import "../assets/css/main.css";
 import axios from "axios";
-import ProductLoader from "./ProductLoader";
+import ProductLoader from "./ProductLoader.tsx";
 import { Modal } from "react-bootstrap";
 
-function ShopWhitelist() {
+function ShopWishlist() {
   //To use API date we must first declare the variable type than we will call them inside the program.
   type Product = {
     Product_name: string;
@@ -137,7 +137,7 @@ function ShopWhitelist() {
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
               <div className="product-img product-img-zoom">
-                <NavLink to={"/Details?q=" + product.Product_id}>
+                <NavLink to={"/#"}>
                   <img
                     className="default-img resizeimg"
                     src={urlApp + product.Picture}
@@ -197,4 +197,4 @@ function ShopWhitelist() {
   );
 }
 
-export default ShopWhitelist;
+export default ShopWishlist;

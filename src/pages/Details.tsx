@@ -7,6 +7,7 @@ function Details() {
   return (
     <>
       <ScrollToTop />
+
       <Menu />
       <main className="main">
         <div className="page-header breadcrumb-wrap">

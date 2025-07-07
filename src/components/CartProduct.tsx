@@ -39,7 +39,7 @@ function Product() {
                   <p>
                     {" "}
                     Désolé vous devrez vous connecter{" "}
-                    <strong>pour voir votre wishlist</strong>{" "}
+                    <strong>pour voir vos items</strong>{" "}
                   </p>
                   <p>
                     <a

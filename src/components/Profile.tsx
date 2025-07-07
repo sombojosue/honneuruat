@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import MyModalLogOut from "./MyModalLogOut";
 import Modal from "./Modal";
+import ProfileImageUploader from "./ProfileImageUploader";
 import { urlApp } from "./Variables";
 
 const ProfileText: React.FC = () => {
   //const userAccount = localStorage.getItem("userName") || "";
+  const avatar = localStorage.getItem("userAvatar") || "";
   const [message, setMessage] = useState("");
   const [MessageSuccess, setMessageSuccess] = useState("");
   const [formData, setFormData] = useState({
@@ -127,6 +129,10 @@ const ProfileText: React.FC = () => {
 
         if (result.message == "Invalid Account") {
           setMessage("L'adresse e-mail n'existe pas dans notre système.");
+        }
+
+        if (result.message == "Invalid Phone") {
+          setMessage("Numéro de téléphone est déjà utilisée.");
         }
 
         if (result.message == "Invalid Address") {
@@ -408,22 +414,6 @@ const ProfileText: React.FC = () => {
                   <h5>Détails du compte</h5>
                 </div>
 
-                <div
-                  id="errorsignupEd"
-                  style={{
-                    display: "none",
-                    padding: "5px",
-                    marginBottom: "-6%",
-                    marginTop: "5px",
-                    border: "1px solid transparent",
-                    borderRadius: "4px",
-                    color: "#fff",
-                  }}
-                >
-                  <i className="fa fa-info-circle with-icon"></i>&nbsp;
-                  <span id="msgsignupEd"></span>
-                </div>
-
                 <div className="card-body">
                   <form
                     className="contact-form-style text-center"
@@ -431,6 +421,36 @@ const ProfileText: React.FC = () => {
                     method="post"
                     onSubmit={handleProfile}
                   >
+                    {/* Image editing */}
+                    <div className="d-flex align-items-center mb-4">
+                      <img
+                        src={avatar}
+                        alt="Profile"
+                        className="img-thumbnail rounded-circle"
+                        style={{ width: "220px", height: "220px" }}
+                      />
+                      <button
+                        type="button"
+                        className="edit-btn"
+                        style={{ marginTop: "168px" }}
+                        aria-label="Edit image"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModalImage"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-pencil"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 3L13 4.793 14.793 3 13 1.207 11.207 3zM10.5 3.707L2 12.207V13h.793l8.5-8.5-1.793-1.793z" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* End of image editing */}
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
                         <div className="input-style mb-20">
@@ -535,6 +555,10 @@ const ProfileText: React.FC = () => {
         id="myModalLogOut"
         title="Déconnexion"
         body="Voulez-vous vraiment vous déconnecter ?"
+      />
+      <ProfileImageUploader
+        id="myModalImage"
+        title="Modifier la photo de profil"
       />
     </>
   );

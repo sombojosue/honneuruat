@@ -96,9 +96,21 @@ function Footer() {
                     Inscrivez-vous à la newsletter
                   </h4>
 
-                  {message && <h4 className="text-danger">{message}</h4>}
+                  {message && (
+                    <h4
+                      className="alert alert-danger mt-3"
+                      style={{ fontSize: "12px" }}
+                    >
+                      {message}
+                    </h4>
+                  )}
                   {messageSuccess && (
-                    <h4 className="text-success">{messageSuccess}</h4>
+                    <h4
+                      className="alert alert-success mt-3"
+                      style={{ fontSize: "12px" }}
+                    >
+                      {messageSuccess}
+                    </h4>
                   )}
                 </div>
               </div>
@@ -217,7 +229,7 @@ function Footer() {
 
                 <li>
                   <NavLink
-                    to="/policy"
+                    to="/Policy"
                     end
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
@@ -225,7 +237,7 @@ function Footer() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="term-condition">Terms &amp; Conditions</NavLink>
+                  <NavLink to="/Term">Terms &amp; Conditions</NavLink>
                 </li>
                 <li>
                   <NavLink
@@ -247,7 +259,7 @@ function Footer() {
                   <NavLink to="/Cart">Voir Cart</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/Whitelist">Voir Wishlist</NavLink>
+                  <NavLink to="/Wishlist">Voir Wishlist</NavLink>
                 </li>
               </ul>
             </div>

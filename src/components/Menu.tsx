@@ -130,6 +130,7 @@ function Menu() {
                           <img
                             src={imgprofile || "assets/imgs/profile.png"}
                             alt="Profil"
+                            className="rounded-circle"
                             style={{
                               width: "30px",
                               height: "30px",
@@ -195,7 +196,7 @@ function Menu() {
                 <div className="header-action-right">
                   <div className="header-action-2">
                     <div className="header-action-icon-2">
-                      <NavLink to="/Whitelist">
+                      <NavLink to="/Wishlist">
                         <img
                           className="svgInject"
                           alt="Evara"
@@ -338,7 +339,7 @@ function Menu() {
               <div className="header-action-right d-block d-lg-none">
                 <div className="header-action-2">
                   <div className="header-action-icon-2">
-                    <NavLink to="/Whitelist">
+                    <NavLink to="/Wishlist">
                       <img alt="Evara" src={heartShopping} />
                     </NavLink>
                   </div>
