@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-//import { NavLink } from "react-router-dom";
-//import { useState } from 'react'
 import "../assets/css/main.css";
 import { urlApp } from "./Variables";
-import { Modal } from "react-bootstrap";
+import Modal from "./Modal"; // ✅ Use your actual Modal component, not react-bootstrap
 
 function Product() {
-  //To use API date we must first declare the variable type than we will call them inside the program.
   type Product = {
     cart_product_name: string;
     cart_product_avatar: string;
@@ -16,19 +13,25 @@ function Product() {
   };
 
   const [data, setData] = useState<Product[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  let user = localStorage.getItem("userEmail");
+  const userEmail = localStorage.getItem("userEmail");
 
-  if (!user) {
-    useEffect(() => {
-      fetch(`${urlApp}productcart.php?u=${user}`)
+  useEffect(() => {
+    if (userEmail) {
+      setIsLoggedIn(true);
+      fetch(`${urlApp}productcart.php?u=${userEmail}`)
         .then((response) => response.json())
-        .then((jsonData) => setData(jsonData))
-        .catch((error) => console.error("Error fetching data:", error));
-    }, []);
+        .then((jsonData) => {
+          setData(jsonData);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [userEmail]);
 
-    //Checking if user is not yet login into the system
-
+  if (!isLoggedIn) {
     return (
       <>
         <div className="container">
@@ -37,9 +40,8 @@ function Product() {
               <div className="shop-product-fillter">
                 <div className="totall-product">
                   <p>
-                    {" "}
-                    Désolé vous devrez vous connecter{" "}
-                    <strong>pour voir vos items</strong>{" "}
+                    Désolé, vous devez vous connecter{" "}
+                    <strong>pour voir vos items</strong>
                   </p>
                   <p>
                     <a
@@ -47,7 +49,7 @@ function Product() {
                       data-bs-target="#exampleModal"
                       href="#"
                     >
-                      Connecter vous ici -&gt;
+                      Connectez-vous ici &rarr;
                     </a>
                   </p>
                 </div>
@@ -64,180 +66,126 @@ function Product() {
       </>
     );
   }
-  //If login account display cart information
+
+  const calculateSubtotal = (product: Product) =>
+    product.cart_price * product.cart_qty;
+
+  const total = data.reduce(
+    (sum, item) => sum + item.cart_price * item.cart_qty,
+    0
+  );
+
   return (
-    <>
-      <section className="mt-50 mb-50">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="table-responsive">
-                <table className="table shopping-summery text-center clean">
-                  <thead>
-                    <tr className="main-heading">
-                      <th scope="col">Image</th>
-                      <th scope="col">Nom</th>
-                      <th scope="col">Prix</th>
-                      <th scope="col">Qty</th>
-                      <th scope="col">Subtotal</th>
-                      <th scope="col">Supprimer</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((product, index) => (
-                      <tr id={"remove-" + index}>
-                        <td className="image product-thumbnail">
-                          <img
-                            src={urlApp + product.cart_product_avatar}
-                            alt="#"
-                          />
-                        </td>
-
-                        <td className="product-des product-name">
-                          <h5 className="product-name">
-                            <a>{product.cart_product_name}</a>
-                          </h5>
-                        </td>
-                        <td className="price" data-title="Price">
-                          <span> {product.cart_price}$</span>
-                        </td>
-                        <td className="text-center" data-title="Stock">
-                          <div className="detail-qty border radius  m-auto">
-                            <a
-                              href="#"
-                              id="cartminus"
-                              style={{
-                                fontSize: "16px",
-                                cursor: "pointer",
-                                position: "absolute",
-                                bottom: "0",
-                                right: "8px",
-                                color: "#707070",
-                              }}
-                            >
-                              <i className="fi-rs-angle-small-down"></i>
-                            </a>
-
-                            <span className="qty-val" id="qty_">
-                              {product.cart_qty}
-                            </span>
-
-                            <a
-                              style={{
-                                fontSize: "16px",
-                                cursor: "pointer",
-                                position: "absolute",
-                                right: "8px",
-                                top: "0",
-                                color: "#707070",
-                              }}
-                              id="cartplus"
-                            >
-                              <i className="fi-rs-angle-small-up"></i>
-                            </a>
-                          </div>
-                        </td>
-                        <td className="text-right" data-title="Cart">
-                          <span id="amount_"></span>$
-                        </td>
-                        <td className="action" data-title="Supprime">
-                          <a
-                            style={{ cursor: "pointer" }}
-                            className="text-muted"
-                          >
-                            <i className="fi-rs-trash"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="divider center_icon mt-50 mb-50">
-                <i className="fi-rs-fingerprint"></i>
-              </div>
-              <div className="row mb-50">
-                <div className="col-lg-6 col-md-12">
-                  <div className="mb-30 mt-50">
-                    <div className="heading_s1 mb-3">
-                      <h4>Applique Coupon</h4>
-                    </div>
-                    <div className="total-amount">
-                      <div className="left">
-                        <div className="coupon">
-                          <form id="couponfrm" method="post">
-                            <div className="form-row row justify-content-center">
-                              <div className="form-group col-lg-6">
-                                <input
-                                  className="font-medium"
-                                  name="Coupon"
-                                  placeholder="Entre votre coupon"
-                                  id="couponId"
-                                />
-                              </div>
-                              <div className="form-group col-lg-6">
-                                <button
-                                  className="btn  btn-sm"
-                                  type="submit"
-                                  id="btncoupon"
-                                >
-                                  <i className="fi-rs-label mr-10"></i>
-                                  Vérifier
-                                </button>
-                              </div>
-                            </div>
-                          </form>
+    <section className="mt-50 mb-50">
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <div className="table-responsive">
+              <table className="table shopping-summery text-center clean">
+                <thead>
+                  <tr className="main-heading">
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Qty</th>
+                    <th>Sous-total</th>
+                    <th>Supprimer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((product, index) => (
+                    <tr key={index}>
+                      <td className="image product-thumbnail">
+                        <img
+                          src={urlApp + product.cart_product_avatar}
+                          alt={product.cart_product_name}
+                        />
+                      </td>
+                      <td className="product-des product-name">
+                        <h5 className="product-name">
+                          {product.cart_product_name}
+                        </h5>
+                      </td>
+                      <td className="price">{product.cart_price}$</td>
+                      <td className="text-center">
+                        <div className="detail-qty border radius m-auto">
+                          <span className="qty-val">{product.cart_qty}</span>
                         </div>
+                      </td>
+                      <td className="text-right">
+                        {calculateSubtotal(product)}$
+                      </td>
+                      <td className="action text-muted">
+                        <i
+                          className="fi-rs-trash"
+                          style={{ cursor: "pointer" }}
+                        ></i>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="divider center_icon mt-50 mb-50">
+              <i className="fi-rs-fingerprint"></i>
+            </div>
+
+            <div className="row mb-50">
+              <div className="col-lg-6">
+                <div className="mb-30 mt-50">
+                  <h4 className="mb-3">Appliquer un coupon</h4>
+                  <form>
+                    <div className="form-row row justify-content-center">
+                      <div className="form-group col-lg-6">
+                        <input
+                          className="font-medium"
+                          name="Coupon"
+                          placeholder="Entrez votre coupon"
+                        />
+                      </div>
+                      <div className="form-group col-lg-6">
+                        <button className="btn btn-sm" type="submit">
+                          <i className="fi-rs-label mr-10"></i> Vérifier
+                        </button>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
-                <div className="col-lg-6 col-md-12">
-                  <div className="border p-md-4 p-30 border-radius cart-totals">
-                    <div className="heading_s1 mb-3">
-                      <h4>Cart Total</h4>
-                    </div>
-                    <div className="table-responsive">
-                      <table className="table">
-                        <tbody>
-                          <tr>
-                            <td className="cart_total_label">Cart Subtotal</td>
-                            <td className="cart_total_amount">
-                              <span className="font-lg fw-900 text-brand">
-                                <span id="subtotal"></span>$
-                              </span>
-                            </td>
-                            <input type="hidden" id="price_total" value="" />
-                          </tr>
-                          <tr>
-                            <td className="cart_total_label">Shipping</td>
-                            <td className="cart_total_amount">
-                              {" "}
-                              <i className="ti-gift mr-5"></i> Free Shipping
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="cart_total_label">Total</td>
-                            <td className="cart_total_amount">
-                              <strong>
-                                <span className="font-xl fw-900 text-brand">
-                                  <span id="sumtotal"></span>$
-                                </span>
-                              </strong>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+              </div>
+
+              <div className="col-lg-6">
+                <div className="border p-md-4 p-30 border-radius cart-totals">
+                  <h4 className="mb-3">Total du panier</h4>
+                  <table className="table">
+                    <tbody>
+                      <tr>
+                        <td>Sous-total</td>
+                        <td>
+                          <strong>{total}$</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Livraison</td>
+                        <td>
+                          <i className="ti-gift mr-5"></i> Livraison gratuite
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Total</td>
+                        <td>
+                          <strong className="text-brand">{total}$</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

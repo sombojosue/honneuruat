@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useCart } from "./CartContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   phoneNumber,
@@ -22,6 +23,8 @@ import axios from "axios";
 import "../assets/css/main.css";
 
 function Menu() {
+  const { totalItems } = useCart();
+
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleCategory, setIsVisibleCategory] = useState(false);
   const [isVisibleCategoryMobile, setIsVisibleCategoryMobile] = useState(false);
@@ -207,9 +210,7 @@ function Menu() {
                     <div className="header-action-icon-2">
                       <NavLink to="/Cart" className="mini-cart-icon">
                         <img alt="Evara" src={cartShopping} />
-                        <span className="pro-count blue" id="cartCountone">
-                          0
-                        </span>
+                        <span className="pro-count blue">{totalItems}</span>
                       </NavLink>
                     </div>
                   </div>
@@ -346,9 +347,7 @@ function Menu() {
                   <div className="header-action-icon-2">
                     <NavLink to="/Cart" className="mini-cart-icon">
                       <img alt="Evara" src={cartShopping} />
-                      <span className="pro-count white" id="cartCounttwo">
-                        0
-                      </span>
+                      <span className="pro-count white">{totalItems}</span>
                     </NavLink>
                   </div>
                   <div

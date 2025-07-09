@@ -16,8 +16,8 @@ const ProfileText: React.FC = () => {
     password: "",
   });
 
-  const [command, setCommand] = useState("");
-  const [email, setEmail] = useState("");
+  //const [command, setCommand] = useState("");
+  //const [email, setEmail] = useState("");
   const [btnOpacity, setBtnOpacity] = useState(true);
 
   const handleChange = (
@@ -214,20 +214,6 @@ const ProfileText: React.FC = () => {
                   <i className="fi-rs-shopping-bag mr-10"></i>Commander
                 </a>
               </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  id="track-orders-tab"
-                  data-bs-toggle="tab"
-                  href="#track-orders"
-                  role="tab"
-                  aria-controls="track-orders"
-                  aria-selected="false"
-                >
-                  <i className="fi-rs-shopping-cart-check mr-10"></i>Tracker
-                  commander
-                </a>
-              </li>
 
               <li className="nav-item">
                 <a
@@ -338,66 +324,6 @@ const ProfileText: React.FC = () => {
                         </tr>
                       </tbody>
                     </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="tab-pane fade"
-              id="track-orders"
-              role="tabpanel"
-              aria-labelledby="track-orders-tab"
-            >
-              <div className="card">
-                <div className="card-header">
-                  <h5 className="mb-0">Suivi des commandes</h5>
-                </div>
-                <div className="card-body contact-from-area">
-                  <p>
-                    Pour suivre votre commande, veuillez entrer votre ID de
-                    commande dans la case ci-dessous et appuyez sur le bouton
-                    "Suivre". Celui-ci vous a été indiqué sur votre reçu et dans
-                    l'e-mail de confirmation que vous auriez dû recevoir.
-                  </p>
-                  <div className="row">
-                    <div className="col-lg-8">
-                      <form
-                        className="contact-form-style mt-30 mb-50"
-                        action="tracking.php"
-                        method="get"
-                      >
-                        <div className="input-style mb-20">
-                          <label>Numéro de commande</label>
-                          <input
-                            name="trackid"
-                            placeholder="Trouvé dans votre e-mail de confirmation de commande"
-                            type="text"
-                            className="square"
-                            value={command}
-                            onChange={(e) => setCommand(e.target.value)}
-                          />
-                        </div>
-                        <div className="input-style mb-20">
-                          <label>E-mail de facturation</label>
-
-                          <input
-                            placeholder="E-mail que vous avez utilisé lors du paiement"
-                            type="email"
-                            name="email"
-                            className="square"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </div>
-
-                        <button
-                          className="submit submit-auto-width"
-                          type="submit"
-                        >
-                          Track
-                        </button>
-                      </form>
-                    </div>
                   </div>
                 </div>
               </div>

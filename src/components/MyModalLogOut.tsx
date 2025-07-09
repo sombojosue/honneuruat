@@ -18,7 +18,6 @@ const MyModalLogOut: React.FC<MyModalProps> = ({ id, title, body }) => {
     if (modal) {
       modal.classList.remove("show");
       modal.style.display = "none";
-      modal.setAttribute("aria-hidden", "true");
     }
 
     document.body.classList.remove("modal-open");

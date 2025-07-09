@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { CartProvider } from "../components/CartContext.tsx";
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import { NavLink } from "react-router-dom";
@@ -38,56 +38,57 @@ function Wishlist() {
   return (
     <>
       <ScrollToTop />
-
-      <Menu />
-      <main className="main">
-        <div className="page-header breadcrumb-wrap">
-          <div className="container">
-            <div className="breadcrumb">
-              <a href="./" rel="nofollow">
-                Accueil
-              </a>
-              <span></span> Shop
-            </div>
-          </div>
-        </div>
-
-        <section className="mt-50 mb-50">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-9">
-                <div className="row product-grid-3">
-                  <ShopWhitelist />
-                </div>
-              </div>
-              <div className="col-lg-3 primary-sidebar sticky-sidebar">
-                <div className="row">
-                  <div className="col-lg-12 col-mg-6"></div>
-                  <div className="col-lg-12 col-mg-6"></div>
-                </div>
-                <div className="widget-category mb-30">
-                  <h5 className="section-title style-1 mb-30 wow fadeIn animated">
-                    Catégories
-                  </h5>
-                  <ul className="categories">
-                    {categoryList.map((productdata) => (
-                      <li key={productdata.Category_id}>
-                        <NavLink
-                          to={"/Categorytype?q=" + productdata.Category_Name}
-                        >
-                          {productdata.Category_Name}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+      <CartProvider>
+        <Menu />
+        <main className="main">
+          <div className="page-header breadcrumb-wrap">
+            <div className="container">
+              <div className="breadcrumb">
+                <a href="./" rel="nofollow">
+                  Accueil
+                </a>
+                <span></span> Shop
               </div>
             </div>
           </div>
-        </section>
 
-        <Footer />
-      </main>
+          <section className="mt-50 mb-50">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-9">
+                  <div className="row product-grid-3">
+                    <ShopWhitelist />
+                  </div>
+                </div>
+                <div className="col-lg-3 primary-sidebar sticky-sidebar">
+                  <div className="row">
+                    <div className="col-lg-12 col-mg-6"></div>
+                    <div className="col-lg-12 col-mg-6"></div>
+                  </div>
+                  <div className="widget-category mb-30">
+                    <h5 className="section-title style-1 mb-30 wow fadeIn animated">
+                      Catégories
+                    </h5>
+                    <ul className="categories">
+                      {categoryList.map((productdata) => (
+                        <li key={productdata.Category_id}>
+                          <NavLink
+                            to={"/Categorytype?q=" + productdata.Category_Name}
+                          >
+                            {productdata.Category_Name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <Footer />
+        </main>
+      </CartProvider>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { CartProvider } from "../components/CartContext.tsx";
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import DetailsData from "../components/DetailsData.tsx";
@@ -7,22 +8,23 @@ function Details() {
   return (
     <>
       <ScrollToTop />
-
-      <Menu />
-      <main className="main">
-        <div className="page-header breadcrumb-wrap">
-          <div className="container">
-            <div className="breadcrumb">
-              <a href="./" rel="nofollow">
-                Accueil
-              </a>
-              <span></span> Détails
+      <CartProvider>
+        <Menu />
+        <main className="main">
+          <div className="page-header breadcrumb-wrap">
+            <div className="container">
+              <div className="breadcrumb">
+                <a href="./" rel="nofollow">
+                  Accueil
+                </a>
+                <span></span> Détails
+              </div>
             </div>
           </div>
-        </div>
-        <DetailsData />
-        <Footer />
-      </main>
+          <DetailsData />
+          <Footer />
+        </main>
+      </CartProvider>
     </>
   );
 }

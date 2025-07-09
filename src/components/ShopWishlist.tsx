@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { urlApp } from "./Variables.tsx";
-//import { useState } from 'react'
+import { useCart } from "./CartContext";
 import "../assets/css/main.css";
 import axios from "axios";
 import ProductLoader from "./ProductLoader.tsx";
@@ -17,6 +17,8 @@ function ShopWishlist() {
     Product_id: number;
   };
 
+  const { addToCart } = useCart();
+  const [successIds, setSuccessIds] = useState<number[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<Product[]>([]);
@@ -78,6 +80,33 @@ function ShopWishlist() {
         />
       </>
     );
+
+  const handleAddToCart = async (product: Product) => {
+    const updateQty = 1;
+    try {
+      const result = await addToCart({
+        id: product.Product_id,
+        name: product.Product_name,
+        price: product.Price,
+        qty: updateQty,
+        avatar: product.Picture,
+      });
+
+      // ✅ Only update icon when PHP API says success
+      if (result === true) {
+        setSuccessIds((prev) => [...prev, product.Product_id]);
+
+        // Optional: revert icon after 2 seconds
+        setTimeout(() => {
+          setSuccessIds((prev) =>
+            prev.filter((id) => id !== product.Product_id)
+          );
+        }, 2000);
+      }
+    } catch (err) {
+      console.error("Erreur panier:", err);
+    }
+  };
 
   return (
     <>
@@ -183,8 +212,15 @@ function ShopWishlist() {
                     aria-label="Ajouter au panier"
                     className="action-btn hover-up"
                     style={{ float: "right" }}
+                    onClick={() => handleAddToCart(product)}
                   >
-                    <i className="fi-rs-shopping-bag-add"></i>
+                    <i
+                      className={
+                        successIds.includes(product.Product_id)
+                          ? "fi-rs-check"
+                          : "fi-rs-shopping-bag-add"
+                      }
+                    ></i>
                   </button>
                 </div>
               </div>
