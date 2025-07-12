@@ -245,7 +245,7 @@ const ReservationData: React.FC = () => {
       <ReservationModal
         id="myModalReservation"
         title="Faire la réservation"
-        body="Valide votre reservation ?"
+        body={`${product.Product_id}`}
       />
     </>
   );
