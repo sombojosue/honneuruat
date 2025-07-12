@@ -147,7 +147,6 @@ function ShopWishlist() {
         alert("Erreur: " + response.message);
       }
     } catch (error) {
-      console.error("Wishlist error:", error);
       alert("Une erreur est survenue lors de la suppression.");
     }
   };

@@ -1,42 +1,56 @@
 import { useEffect, useState } from "react";
 import "../assets/css/main.css";
 import { urlApp } from "./Variables";
-import Modal from "./Modal"; // ✅ Use your actual Modal component, not react-bootstrap
+import Modal from "./Modal";
 import PaymentModal from "./PaymentModal";
+import { useCart } from "./CartContext";
+
+type Product = {
+  cart_product_name: string;
+  cart_product_avatar: string;
+  cart_price: number;
+  Category_name: string;
+  cart_qty: number;
+  cart_id: number;
+};
 
 function Product() {
-  type Product = {
-    cart_product_name: string;
-    cart_product_avatar: string;
-    cart_price: number;
-    Category_name: string;
-    cart_qty: number;
-  };
-
   const [data, setData] = useState<Product[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
   const userEmail = localStorage.getItem("userEmail");
 
   useEffect(() => {
     if (userEmail) {
       setIsLoggedIn(true);
       fetch(`${urlApp}productcart.php?u=${userEmail}`)
-        .then((response) => response.json())
-        .then((jsonData) => {
-          setData(jsonData);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
+        .then((res) => res.json())
+        .then((jsonData) => setData(jsonData))
+        .catch((error) => console.error("Error fetching data:", error));
     }
   }, [userEmail]);
+
+  const calculateSubtotal = (product: Product) =>
+    product.cart_price * product.cart_qty;
+
+  const total = data.reduce(
+    (sum, item) => sum + item.cart_price * item.cart_qty,
+    0
+  );
+
+  const { removeFromCart } = useCart();
+  const handleRemoveToCart = async (itemId: number) => {
+    const success = await removeFromCart(itemId);
+    if (success) {
+      // ✅ Update local state to remove the product row visually
+      setData((prevData) => prevData.filter((item) => item.cart_id !== itemId));
+    }
+  };
 
   if (!isLoggedIn) {
     return (
       <>
         <div className="container">
-          <div className="row mb-5 p-5" style={{ marginBottom: "100px" }}>
+          <div className="row mb-5 p-5">
             <div className="col-12">
               <div className="shop-product-fillter">
                 <div className="totall-product">
@@ -68,14 +82,6 @@ function Product() {
     );
   }
 
-  const calculateSubtotal = (product: Product) =>
-    product.cart_price * product.cart_qty;
-
-  const total = data.reduce(
-    (sum, item) => sum + item.cart_price * item.cart_qty,
-    0
-  );
-
   return (
     <>
       <section className="mt-50 mb-50">
@@ -104,9 +110,7 @@ function Product() {
                           />
                         </td>
                         <td className="product-des product-name">
-                          <h5 className="product-name">
-                            {product.cart_product_name}
-                          </h5>
+                          <h5>{product.cart_product_name}</h5>
                         </td>
                         <td className="price">{product.cart_price}$</td>
                         <td className="text-center">
@@ -119,6 +123,7 @@ function Product() {
                         </td>
                         <td className="action text-muted">
                           <i
+                            onClick={() => handleRemoveToCart(product.cart_id)}
                             className="fi-rs-trash"
                             style={{ cursor: "pointer" }}
                           ></i>
@@ -141,6 +146,7 @@ function Product() {
                       <div className="form-row row justify-content-center">
                         <div className="form-group col-lg-6">
                           <input
+                            type="text"
                             className="font-medium"
                             name="Coupon"
                             placeholder="Entrez votre coupon"
@@ -182,14 +188,18 @@ function Product() {
                       </tbody>
                     </table>
                     <div className="form-group col-lg-6">
-                      <button
-                        className="btn btn-sm"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#myModalPayment"
-                      >
-                        <i className="fi-rs-money mr-10"></i> Paie
-                      </button>
+                      {total > 0 && (
+                        <div className="form-group col-lg-6">
+                          <button
+                            className="btn btn-sm"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myModalPayment"
+                          >
+                            <i className="fi-rs-money mr-10"></i> Pay
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
