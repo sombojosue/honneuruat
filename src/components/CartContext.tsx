@@ -99,7 +99,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return false;
       }
 
-      if (data.success) {
+      if (data.success || data.message == "Existed item") {
         setCart((prev) => {
           const existing = prev.find((i) => i.id === item.id);
           if (existing) {
@@ -110,7 +110,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           return [...prev, { ...item, quantity: 1 }];
         });
 
-        setTotalItems((prev) => prev + 1); // ✅ increment after add
+        if (data.message != "Existed item") {
+          setTotalItems((prev) => prev + 1); // ✅ increment after add
+        }
+
         return true;
       } else {
         //alert("Erreur: " + data.message);

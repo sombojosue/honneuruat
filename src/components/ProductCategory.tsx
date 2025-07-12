@@ -110,7 +110,7 @@ const ProductCategory: React.FC = () => {
           setSuccessIds((prev) =>
             prev.filter((id) => id !== product.Product_id)
           );
-        }, 2000);
+        }, 10000);
       }
     } catch (err) {
       console.error("Erreur panier:", err);
@@ -189,7 +189,7 @@ const ProductCategory: React.FC = () => {
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
               <div className="product-img product-img-zoom">
-                <NavLink to={"/#"}>
+                <a>
                   <img
                     className="default-img resizeimg"
                     src={urlApp + product.Picture}
@@ -200,7 +200,7 @@ const ProductCategory: React.FC = () => {
                     src={urlApp + product.Picture}
                     alt="Item images"
                   />
-                </NavLink>
+                </a>
               </div>
               <div className="product-action-1">
                 <NavLink

@@ -203,7 +203,7 @@ function Contact() {
                             </button>
                           ) : (
                             <button
-                              className="submit submit-auto-width"
+                              className="btn"
                               id="button"
                               type="submit"
                               disabled

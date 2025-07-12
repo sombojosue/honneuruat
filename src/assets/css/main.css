@@ -1029,7 +1029,7 @@ button[type="submit"]:hover {
 
 .btn:hover,
 .button:hover {
-  background-color: #046963;
+  background-color: #e30613;
 }
 
 .btn.btn-sm,
@@ -1047,8 +1047,8 @@ button[type="submit"]:hover {
 
 .btn.btn-secondary,
 .button.btn-secondary {
-  background-color: #41506b;
-  border-color: #41506b;
+  background-color: #e30613;
+  border-color: #e30613;
 }
 
 .btn.btn-facebook,

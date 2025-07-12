@@ -7,8 +7,24 @@ import axios from "axios";
 import ProductLoader from "./ProductLoader.tsx";
 import { Modal } from "react-bootstrap";
 
+// PHP API to remove wishlist item
+const RemoveToWishlist = async (itemId: string, userId: string) => {
+  const response = await fetch(`${urlApp}productwhiteremove.php`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      item_id: itemId,
+      user_id: userId,
+    }),
+  });
+
+  const result = await response.json();
+  return result;
+};
+
 function ShopWishlist() {
-  //To use API date we must first declare the variable type than we will call them inside the program.
   type Product = {
     Product_name: string;
     Picture: string;
@@ -22,43 +38,39 @@ function ShopWishlist() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<Product[]>([]);
+  const [removeWishlistIds, setRemoveWishlistIds] = useState<number[]>([]);
 
-  //cheking if user is logging into the server
   const userId = localStorage.getItem("userToken") || "";
-  if (userId) {
-    useEffect(() => {
-      const fetchProducts = async () => {
-        try {
-          const response = await axios.get<Product[]>(
-            `${urlApp}productwhitelist.php?u=${userId}`
-          );
-          setData(response.data);
-        } catch (err) {
-          console.error(err);
-          setError("Échec de la récupération des produits.");
-        } finally {
-          setLoading(false);
-        }
-      };
 
-      fetchProducts();
-    }, []);
+  useEffect(() => {
+    if (!userId) return;
 
-    if (loading) return <ProductLoader />;
-    if (error) return <p className="text-danger">{error}</p>;
-  }
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get<Product[]>(
+          `${urlApp}productwhitelist.php?u=${userId}`
+        );
+        setData(response.data);
+      } catch (err) {
+        console.error(err);
+        setError("Échec de la récupération des produits.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //Checking if user is not yet login into the system
-  if (!userId)
+    fetchProducts();
+  }, [userId]);
+
+  if (!userId) {
     return (
       <>
         <div className="col-lg-9">
           <div className="shop-product-fillter">
             <div className="totall-product">
               <p>
-                {" "}
-                Désolé vous devrez vous connecter{" "}
-                <strong>pour voir votre wishlist</strong>{" "}
+                Désolé, vous devez vous connecter{" "}
+                <strong>pour voir votre wishlist</strong>
               </p>
               <p>
                 <a
@@ -66,7 +78,7 @@ function ShopWishlist() {
                   data-bs-target="#exampleModal"
                   href="#"
                 >
-                  Connecter vous ici -&gt;
+                  Connectez-vous ici -&gt;
                 </a>
               </p>
             </div>
@@ -80,6 +92,10 @@ function ShopWishlist() {
         />
       </>
     );
+  }
+
+  if (loading) return <ProductLoader />;
+  if (error) return <p className="text-danger">{error}</p>;
 
   const handleAddToCart = async (product: Product) => {
     const updateQty = 1;
@@ -92,19 +108,47 @@ function ShopWishlist() {
         avatar: product.Picture,
       });
 
-      // ✅ Only update icon when PHP API says success
       if (result === true) {
         setSuccessIds((prev) => [...prev, product.Product_id]);
 
-        // Optional: revert icon after 2 seconds
         setTimeout(() => {
           setSuccessIds((prev) =>
             prev.filter((id) => id !== product.Product_id)
           );
-        }, 2000);
+        }, 10000);
       }
     } catch (err) {
       console.error("Erreur panier:", err);
+    }
+  };
+
+  const handleRemoveToWishlist = async (itemId: number) => {
+    if (!userId) {
+      alert("Veuillez vous connecter pour supprimer de la liste de souhaits.");
+      return;
+    }
+
+    try {
+      const response = await RemoveToWishlist(String(itemId), userId);
+      if (response.success) {
+        // Optional animation state
+        setRemoveWishlistIds((prev) => [...prev, itemId]);
+
+        // Remove from UI
+        setData((prevData) =>
+          prevData.filter((product) => product.Product_id !== itemId)
+        );
+
+        // Remove animation state after delay (if needed)
+        setTimeout(() => {
+          setRemoveWishlistIds((prev) => prev.filter((id) => id !== itemId));
+        }, 2000);
+      } else {
+        alert("Erreur: " + response.message);
+      }
+    } catch (error) {
+      console.error("Wishlist error:", error);
+      alert("Une erreur est survenue lors de la suppression.");
     }
   };
 
@@ -113,60 +157,19 @@ function ShopWishlist() {
       <div className="shop-product-fillter">
         <div className="totall-product">
           <p>
-            {" "}
             Nous avons trouvé{" "}
             <strong className="text-brand">{data.length}</strong> articles dans
-            votre whitelist
+            votre wishlist
           </p>
         </div>
-        <div className="sort-by-product-area">
-          <div className="sort-by-cover">
-            <div className="sort-by-product-wrap">
-              <div className="sort-by">
-                <span>
-                  <i className="fi-rs-apps-sort"></i>Trier par:
-                </span>
-              </div>
-              <div className="sort-by-dropdown-wrap">
-                <span>
-                  {" "}
-                  Featured <i className="fi-rs-angle-small-down"></i>
-                </span>
-              </div>
-            </div>
-            <div className="sort-by-dropdown">
-              <ul>
-                <li>
-                  <a className="active">Featured</a>
-                </li>
-                <li>
-                  <a href="sorted.php?order=priceasc">Prix: De bas en haut</a>
-                </li>
-                <li>
-                  <a href="sorted.php?order=pricedesc">Prix: De haut en bas</a>
-                </li>
-                <li>
-                  <a href="sorted.php?order=datedesc">
-                    La date la plus récente
-                  </a>
-                </li>
-
-                <li>
-                  <a href="sorted.php?order=datedesc">
-                    La date la plus ancienne
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
+
       {data.map((product, index) => (
         <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" key={index}>
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
               <div className="product-img product-img-zoom">
-                <NavLink to={"/#"}>
+                <a>
                   <img
                     className="default-img resizeimg"
                     src={urlApp + product.Picture}
@@ -175,20 +178,26 @@ function ShopWishlist() {
                   <img
                     className="hover-img resizeimg"
                     src={urlApp + product.Picture}
-                    alt="Item images"
+                    alt="Item image"
                   />
-                </NavLink>
+                </a>
               </div>
               <div className="product-action-1">
-                <NavLink
-                  to={"/Details?q=" + product.Product_id}
-                  aria-label="Aperçu rapide"
+                <button
                   className="action-btn hover-up"
+                  onClick={() => handleRemoveToWishlist(product.Product_id)}
                 >
-                  <i className="fi-rs-eye"></i>
-                </NavLink>
+                  <i
+                    className={
+                      removeWishlistIds.includes(product.Product_id)
+                        ? "fi-rs-check"
+                        : "fi-rs-trash"
+                    }
+                  ></i>
+                </button>
               </div>
             </div>
+
             <div className="product-content-wrap">
               <div className="product-category">
                 <NavLink to={"/Categorytype?q=" + product.Category_name}>
@@ -201,12 +210,10 @@ function ShopWishlist() {
                 </NavLink>
               </h2>
 
-              {/*Price and cart section*/}
               <div className="row mt-2 product-action-update">
                 <div className="col-6 product-price">
                   <span>{product.Price}$</span>
                 </div>
-
                 <div className="col-6">
                   <button
                     aria-label="Ajouter au panier"
@@ -224,7 +231,6 @@ function ShopWishlist() {
                   </button>
                 </div>
               </div>
-              {/* End of price and cart */}
             </div>
           </div>
         </div>

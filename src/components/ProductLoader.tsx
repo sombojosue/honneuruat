@@ -10,7 +10,7 @@ const ProductLoader = () => {
       <div className="row product-grid-3">
         {loaderNumber.map((_, index) => (
           <div
-            className="col-lg-4 col-md-4 col-sm-6 col-xs-6"
+            className="col-lg-3 col-md-4 col-sm-6 col-xs-6"
             key={index}
             style={{ marginBottom: "15px" }}
           >

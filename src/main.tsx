@@ -17,6 +17,8 @@ import NotFound from "./pages/NotFound";
 import PasswordAccount from "./pages/PasswordAccount";
 import Term from "./pages/Term";
 import Policy from "./pages/Policy";
+import Reservation from "./pages/Reservation";
+import ReservationDetails from "./pages/ReservationDetails";
 
 import "./index.css";
 
@@ -36,8 +38,10 @@ const router = createBrowserRouter(
         { path: "Wishlist", element: <Wishlist /> },
         { path: "Cart", element: <Cart /> },
         { path: "App", element: <App /> },
+        { path: "Reservation", element: <Reservation /> },
         { path: "Term", element: <Term /> },
         { path: "Policy", element: <Policy /> },
+        { path: "ReservationDetails", element: <ReservationDetails /> },
         { path: "PasswordAccount", element: <PasswordAccount /> },
         { path: "*", element: <NotFound /> },
       ],

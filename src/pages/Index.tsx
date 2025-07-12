@@ -5,6 +5,7 @@ import Footer from "../components/Footer.tsx";
 import Pub from "../components/Pub.tsx";
 import Product from "../components/Product.tsx";
 import ScrollToTop from "../components/ScrollToTop.tsx";
+import ReservationProduct from "../components/ReservationProduct.tsx";
 
 function Index() {
   return (
@@ -34,7 +35,7 @@ function Index() {
                       aria-controls="tab-one"
                       aria-selected="true"
                     >
-                      Nouvel article
+                      Nos articles
                     </button>
                   </li>
                 </ul>
@@ -60,13 +61,13 @@ function Index() {
                       aria-controls="tab-one"
                       aria-selected="true"
                     >
-                      Nos meilleur produits
+                      Nos réservations
                     </button>
                   </li>
                 </ul>
               </div>
               <div className="row product-grid-4">
-                <Product />
+                <ReservationProduct cardnumber="4" />
               </div>
             </div>
           </section>

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import "../assets/css/main.css";
 import { urlApp } from "./Variables";
-import ProductLoaderHome from "./ProductLoaderHome";
+import ProductLoader from "./ProductLoader";
 import { addToWishlist } from "./AddToWishlist.tsx";
 
 function Product() {
@@ -86,14 +86,14 @@ function Product() {
           setSuccessIds((prev) =>
             prev.filter((id) => id !== product.Product_id)
           );
-        }, 2000);
+        }, 10000);
       }
     } catch (err) {
       console.error("Erreur panier:", err);
     }
   };
 
-  if (loading) return <ProductLoaderHome />;
+  if (loading) return <ProductLoader />;
   if (error) return <p className="text-danger">{error}</p>;
 
   return (
@@ -106,7 +106,7 @@ function Product() {
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
               <div className="product-img product-img-zoom">
-                <NavLink to={`/#`}>
+                <a>
                   <img
                     className="default-img resizeimg"
                     src={`${urlApp}${product.Picture}`}
@@ -117,7 +117,7 @@ function Product() {
                     src={`${urlApp}${product.Picture}`}
                     alt={product.Product_name + " hover"}
                   />
-                </NavLink>
+                </a>
               </div>
               <div className="product-action-1">
                 <NavLink

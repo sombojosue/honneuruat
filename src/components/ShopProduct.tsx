@@ -87,7 +87,7 @@ function CartProduct() {
           setSuccessIds((prev) =>
             prev.filter((id) => id !== product.Product_id)
           );
-        }, 2000);
+        }, 10000);
       }
     } catch (err) {
       console.error("Erreur panier:", err);
@@ -158,7 +158,7 @@ function CartProduct() {
             <div className="product-cart-wrap mb-30">
               <div className="product-img-action-wrap">
                 <div className="product-img product-img-zoom">
-                  <NavLink to={`/#`}>
+                  <a>
                     <img
                       className="default-img resizeimg"
                       src={`${urlApp}${product.Picture}`}
@@ -169,7 +169,7 @@ function CartProduct() {
                       src={`${urlApp}${product.Picture}`}
                       alt="item image hover"
                     />
-                  </NavLink>
+                  </a>
                 </div>
                 <div className="product-action-1">
                   <NavLink

@@ -1,8 +1,8 @@
 import { CartProvider } from "../components/CartContext.tsx";
 import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
-import DetailsData from "../components/DetailsData.tsx";
 import ScrollToTop from "../components/ScrollToTop.tsx";
+import ReservationData from "../components/ReservationData.tsx";
 
 function Details() {
   return (
@@ -17,11 +17,11 @@ function Details() {
                 <a href="./" rel="nofollow">
                   Accueil
                 </a>
-                <span></span> Détails de produit
+                <span></span> Détails de réservation
               </div>
             </div>
           </div>
-          <DetailsData />
+          <ReservationData />
           <Footer />
         </main>
       </CartProvider>

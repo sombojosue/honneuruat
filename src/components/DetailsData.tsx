@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCart } from "./CartContext";
 import "../assets/css/main.css";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
@@ -19,6 +20,7 @@ type Subcategory = {
   Category_Name: string;
   images: string[];
   img: string;
+  review_number: number;
 };
 
 // Sanitize function
@@ -39,6 +41,8 @@ const DetailsData: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [banner, setBanner] = useState<string | null>(null);
+  const { addToCart } = useCart();
+  const [successIds, setSuccessIds] = useState<number[]>([]); // ✅ track success products
 
   const qtyDown = () => {
     if (qtyValue > 1) {
@@ -98,6 +102,33 @@ const DetailsData: React.FC = () => {
     fetchCategoryList();
   }, []);
 
+  const handleAddToCart = async (product: Subcategory) => {
+    const updateQty = qtyValue;
+    try {
+      const result = await addToCart({
+        id: product.Product_id,
+        name: product.Product_name,
+        price: product.Price,
+        qty: updateQty,
+        avatar: product.Picture,
+      });
+
+      // ✅ Only update icon when PHP API says success
+      if (result === true) {
+        setSuccessIds((prev) => [...prev, product.Product_id]);
+
+        // Optional: revert icon after 2 seconds
+        setTimeout(() => {
+          setSuccessIds((prev) =>
+            prev.filter((id) => id !== product.Product_id)
+          );
+        }, 10000);
+      }
+    } catch (err) {
+      console.error("Erreur panier:", err);
+    }
+  };
+
   if (loading) return <p></p>;
   if (error) {
     return (
@@ -114,6 +145,7 @@ const DetailsData: React.FC = () => {
   }
 
   const product = subcategories[0];
+  console.log(product);
 
   return (
     <section className="mt-50 mb-50">
@@ -168,7 +200,7 @@ const DetailsData: React.FC = () => {
                           ></div>
                         </div>
                         <span className="font-small ml-5 text-muted">
-                          (0 reviews)
+                          {/*product.review_numberre + `views`*/}
                         </span>
                       </div>
                     </div>
@@ -212,14 +244,19 @@ const DetailsData: React.FC = () => {
                       </div>
                       <div className="product-extra-link2">
                         <button
-                          type="submit"
-                          className="button button-add-to-cart btncart"
-                          id="btnCardadd"
+                          className="btn"
+                          style={{ float: "right" }}
+                          onClick={() => handleAddToCart(product)}
                         >
-                          <i className="btn__icon btn__icon--cart fi-rs-shopping-cart-add"></i>
-                          <span className="btn__text btn__text--first">
-                            Ajouter au panier
-                          </span>
+                          ajouter&nbsp;
+                          <i
+                            style={{ marginTop: "15px" }}
+                            className={
+                              successIds.includes(product.Product_id)
+                                ? "fi-rs-check"
+                                : "fi-rs-shopping-bag-add"
+                            }
+                          ></i>
                         </button>
                       </div>
                     </div>
@@ -239,13 +276,14 @@ const DetailsData: React.FC = () => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a
+                    {/*<a
                       className="nav-link"
                       data-bs-toggle="tab"
                       href="#Reviews"
                     >
                       Reviews (0)
                     </a>
+*/}
                   </li>
                 </ul>
                 <div className="tab-content shop_info_tab entry-main-content">

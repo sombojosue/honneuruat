@@ -307,6 +307,18 @@ function Menu() {
                       </li>
 
                       <li>
+                        <NavLink
+                          to="/reservation"
+                          end
+                          className={({ isActive }) =>
+                            isActive ? "active" : ""
+                          }
+                        >
+                          Réservation
+                        </NavLink>
+                      </li>
+
+                      <li>
                         {userName ? (
                           <NavLink
                             to="/App"
@@ -480,6 +492,17 @@ function Menu() {
                       className={({ isActive }) => (isActive ? "active" : "")}
                     >
                       Contact
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <span className="menu-expand"></span>
+                    <NavLink
+                      to="/reservation"
+                      end
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Réservation
                     </NavLink>
                   </li>
 
