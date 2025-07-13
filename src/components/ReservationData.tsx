@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { urlApp } from "./Variables";
 import { NavLink } from "react-router-dom";
 import ReservationModal from "./ReservationModal";
+import DetailLoader from "./DetailLoader";
 
 // Types
 
@@ -90,7 +91,7 @@ const ReservationData: React.FC = () => {
     fetchCategoryList();
   }, []);
 
-  if (loading) return <p></p>;
+  if (loading) return <DetailLoader />;
   if (error) {
     return (
       <div className="container">

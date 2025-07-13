@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { urlApp } from "./Variables";
 import { NavLink } from "react-router-dom";
+import DetailLoader from "./DetailLoader";
 
 // Types
 
@@ -39,6 +40,7 @@ const DetailsData: React.FC = () => {
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [categoryList, setCategoryList] = useState<Subcategory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [banner, setBanner] = useState<string | null>(null);
   const { addToCart } = useCart();
@@ -116,12 +118,13 @@ const DetailsData: React.FC = () => {
       // ✅ Only update icon when PHP API says success
       if (result === true) {
         setSuccessIds((prev) => [...prev, product.Product_id]);
-
+        setMessage("✅ Votre item a été ajouté au panier avec succès.");
         // Optional: revert icon after 2 seconds
         setTimeout(() => {
           setSuccessIds((prev) =>
             prev.filter((id) => id !== product.Product_id)
           );
+          setMessage("");
         }, 10000);
       }
     } catch (err) {
@@ -129,7 +132,7 @@ const DetailsData: React.FC = () => {
     }
   };
 
-  if (loading) return <p></p>;
+  if (loading) return <DetailLoader />;
   if (error) {
     return (
       <div className="container">
@@ -260,6 +263,11 @@ const DetailsData: React.FC = () => {
                         </button>
                       </div>
                     </div>
+                    {message && (
+                      <div className="alert alert-success" role="alert">
+                        {message}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
