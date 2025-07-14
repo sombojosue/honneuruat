@@ -287,7 +287,7 @@ const PasswordForm = ({ setActiveForm }: LoginFormProps) => {
         //End of sending email
 
         setMessageSuccess(
-          "Un lien de réinitialisation a été envoyé. Veuillez vérifier votre boîte de réception."
+          "✅ Un lien de réinitialisation a été envoyé. Veuillez vérifier votre boîte de réception."
         );
         setUsername("");
       } else {

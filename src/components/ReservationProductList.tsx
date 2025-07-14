@@ -17,7 +17,8 @@ const ReservationProduct: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<Product[]>([]);
-  const visibleCount = 12;
+  const [visibleCount, setVisibleCount] = useState(3);
+  const itemsPerPage = 3;
 
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -43,7 +44,7 @@ const ReservationProduct: React.FC = () => {
     <>
       {data.slice(0, visibleCount).map((product) => (
         <div
-          className="col-lg-4 col-md-4 col-sm-6 col-xs-6"
+          className="col-lg-3 col-md-4 col-sm-6 col-xs-6"
           key={product.Product_id}
         >
           <div className="product-cart-wrap mb-30">
@@ -89,6 +90,17 @@ const ReservationProduct: React.FC = () => {
           </div>
         </div>
       ))}
+      {visibleCount < data.length && (
+        <div className="text-center mt-4 mb-5">
+          <button
+            className="btn-load-more"
+            onClick={() => setVisibleCount((prev) => prev + itemsPerPage)}
+            aria-label="Charger plus"
+          >
+            <i className="fi-rs-angle-small-down"></i>
+          </button>
+        </div>
+      )}
     </>
   );
 };

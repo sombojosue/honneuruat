@@ -23,6 +23,10 @@ function CartProduct() {
   const [dataResult, setDataResult] = useState<Product[]>([]);
   const [wishlistIds, setWishlistIds] = useState<number[]>([]);
 
+  // Lazy loading state
+  const [visibleCount, setVisibleCount] = useState(12);
+  const itemsPerPage = 12;
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -51,10 +55,7 @@ function CartProduct() {
     try {
       const response = await addToWishlist(String(itemId), userId);
       if (response.success) {
-        //alert("Produit ajouté à votre liste de souhaits.");
         setWishlistIds((prev) => [...prev, itemId]);
-
-        // Optional: revert icon after 2 seconds
         setTimeout(() => {
           setWishlistIds((prev) => prev.filter((id) => id !== itemId));
         }, 2000);
@@ -78,11 +79,8 @@ function CartProduct() {
         avatar: product.Picture,
       });
 
-      // ✅ Only update icon when PHP API says success
       if (result === true) {
         setSuccessIds((prev) => [...prev, product.Product_id]);
-
-        // Optional: revert icon after 2 seconds
         setTimeout(() => {
           setSuccessIds((prev) =>
             prev.filter((id) => id !== product.Product_id)
@@ -150,7 +148,7 @@ function CartProduct() {
       </div>
 
       <div className="row product-grid-3">
-        {dataResult.map((product) => (
+        {dataResult.slice(0, visibleCount).map((product) => (
           <div
             className="col-lg-4 col-md-4 col-sm-6 col-xs-6"
             key={product.Product_id}
@@ -204,7 +202,7 @@ function CartProduct() {
                     {product.Product_name}
                   </NavLink>
                 </h2>
-                {/*Price and cart section*/}
+                {/* Price and cart section */}
                 <div className="row mt-2 product-action-update">
                   <div className="col-6 product-price">
                     <span>{product.Price}$</span>
@@ -233,6 +231,18 @@ function CartProduct() {
           </div>
         ))}
       </div>
+
+      {visibleCount < dataResult.length && (
+        <div className="text-center mt-4 mb-5">
+          <button
+            className="btn-load-more"
+            onClick={() => setVisibleCount((prev) => prev + itemsPerPage)}
+            aria-label="Charger plus"
+          >
+            <i className="fi-rs-angle-small-down"></i>
+          </button>
+        </div>
+      )}
     </>
   );
 }

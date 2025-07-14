@@ -54,7 +54,7 @@ function Footer() {
 
       if (result.success) {
         setmessageSuccess(
-          "Merci ! Vous êtes maintenant abonné(e) à notre newsletter."
+          "✅ Merci ! Vous êtes maintenant abonné(e) à notre newsletter."
         );
         setMessage("");
         setEmail("");

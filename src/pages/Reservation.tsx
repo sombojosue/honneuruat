@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import ScrollToTop from "../components/ScrollToTop.tsx";
 import { urlApp } from "../components/Variables.tsx";
-import ReservationProduct from "../components/ReservationProduct.tsx";
+import ReservationProductList from "../components/ReservationProductList.tsx";
 
 function Shop() {
   type Subcategory = {
@@ -57,7 +57,7 @@ function Shop() {
               <div className="row">
                 <div className="col-lg-9">
                   <div className="row product-grid-3">
-                    <ReservationProduct cardnumber="" />
+                    <ReservationProductList />
                   </div>
                 </div>
                 <div className="col-lg-3 primary-sidebar sticky-sidebar">

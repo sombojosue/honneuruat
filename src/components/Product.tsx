@@ -22,6 +22,7 @@ function Product() {
   const [data, setData] = useState<Product[]>([]);
   const [successIds, setSuccessIds] = useState<number[]>([]); // ✅ track success products
   const [wishlistIds, setWishlistIds] = useState<number[]>([]);
+  const visibleCount = 12; //Limit the number of item to be showing into the home page
 
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -98,7 +99,7 @@ function Product() {
 
   return (
     <>
-      {data.map((product) => (
+      {data.slice(0, visibleCount).map((product) => (
         <div
           className="col-lg-3 col-md-4 col-sm-6 col-xs-6"
           key={product.Product_id}

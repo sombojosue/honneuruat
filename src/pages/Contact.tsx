@@ -50,7 +50,7 @@ function Contact() {
 
       if (result.success) {
         setmessageSuccess(
-          "Merci ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais."
+          "✅ Merci ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais."
         );
         setSubject("");
         setEmail("");

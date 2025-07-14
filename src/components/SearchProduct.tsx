@@ -25,6 +25,9 @@ function SearchResults() {
   const { addToCart } = useCart();
   const [successIds, setSuccessIds] = useState<number[]>([]);
   const [wishlistIds, setWishlistIds] = useState<number[]>([]);
+  // Lazy loading state
+  const [visibleCount, setVisibleCount] = useState(12);
+  const itemsPerPage = 12;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -151,7 +154,7 @@ function SearchResults() {
           </div>
         </div>
       </div>
-      {state.results.map((product, index) => (
+      {state.results.slice(0, visibleCount).map((product, index) => (
         <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" key={index}>
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
@@ -232,6 +235,17 @@ function SearchResults() {
           </div>
         </div>
       ))}
+      {visibleCount < state.results.length && (
+        <div className="text-center mt-4 mb-5">
+          <button
+            className="btn-load-more"
+            onClick={() => setVisibleCount((prev) => prev + itemsPerPage)}
+            aria-label="Charger plus"
+          >
+            <i className="fi-rs-angle-small-down"></i>
+          </button>
+        </div>
+      )}
     </>
   );
 }

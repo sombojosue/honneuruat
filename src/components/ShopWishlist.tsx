@@ -40,6 +40,10 @@ function ShopWishlist() {
   const [data, setData] = useState<Product[]>([]);
   const [removeWishlistIds, setRemoveWishlistIds] = useState<number[]>([]);
 
+  // Lazy loading state
+  const [visibleCount, setVisibleCount] = useState(12);
+  const itemsPerPage = 12;
+
   const userId = localStorage.getItem("userToken") || "";
 
   useEffect(() => {
@@ -163,7 +167,7 @@ function ShopWishlist() {
         </div>
       </div>
 
-      {data.map((product, index) => (
+      {data.slice(0, visibleCount).map((product, index) => (
         <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" key={index}>
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
@@ -234,6 +238,19 @@ function ShopWishlist() {
           </div>
         </div>
       ))}
+
+      {visibleCount < data.length && (
+        <div className="text-center mt-4 mb-5">
+          <button
+            className="btn-load-more"
+            onClick={() => setVisibleCount((prev) => prev + itemsPerPage)}
+            aria-label="Charger plus"
+          >
+            <i className="fi-rs-angle-small-down"></i>
+          </button>
+          <br />
+        </div>
+      )}
     </>
   );
 }

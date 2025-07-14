@@ -33,6 +33,8 @@ const ProductCategory: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [wishlistIds, setWishlistIds] = useState<number[]>([]);
+  const [visibleCount, setVisibleCount] = useState(12);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     if (!categoryId) {
@@ -184,7 +186,7 @@ const ProductCategory: React.FC = () => {
           </div>
         </div>
       </div>
-      {subcategories.map((product, index) => (
+      {subcategories.slice(0, visibleCount).map((product, index) => (
         <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" key={index}>
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
@@ -264,6 +266,17 @@ const ProductCategory: React.FC = () => {
           </div>
         </div>
       ))}
+      {visibleCount < subcategories.length && (
+        <div className="text-center mt-4 mb-5">
+          <button
+            className="btn-load-more"
+            onClick={() => setVisibleCount((prev) => prev + itemsPerPage)}
+            aria-label="Charger plus"
+          >
+            <i className="fi-rs-angle-small-down"></i>
+          </button>
+        </div>
+      )}
     </>
   );
 };

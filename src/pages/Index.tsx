@@ -67,7 +67,7 @@ function Index() {
                 </ul>
               </div>
               <div className="row product-grid-4">
-                <ReservationProduct cardnumber="4" />
+                <ReservationProduct />
               </div>
             </div>
           </section>
