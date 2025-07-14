@@ -28,7 +28,7 @@ function Product() {
     const fetchSubcategories = async () => {
       try {
         const response = await axios.get<Product[]>(
-          `${urlApp}products.php/products`
+          `${urlApp}products.php?page=1`
         );
         setData(response.data);
       } catch (err) {

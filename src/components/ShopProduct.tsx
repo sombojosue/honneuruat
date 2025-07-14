@@ -37,9 +37,7 @@ function CartProduct() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get<Product[]>(
-          `${urlApp}products.php/products`
-        );
+        const response = await axios.get<Product[]>(`${urlApp}products.php`);
         setDataResult(response.data);
       } catch (err) {
         console.error(err);
