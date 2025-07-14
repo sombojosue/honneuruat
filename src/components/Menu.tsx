@@ -235,7 +235,7 @@ function Menu() {
                       setIsVisibleCategory(!isVisibleCategory);
                     }}
                   >
-                    <span className="fi-rs-apps"></span>Catégories
+                    <span className="fi-rs-apps"></span>Services
                   </a>
                   <div
                     className={
@@ -245,15 +245,12 @@ function Menu() {
                     }
                   >
                     <ul>
-                      {categoryList.map((productdata) => (
-                        <li key={productdata.Category_id}>
-                          <NavLink
-                            to={"/Categorytype?q=" + productdata.Category_Name}
-                          >
-                            {productdata.Category_Name}
-                          </NavLink>
-                        </li>
-                      ))}
+                      <li>
+                        <NavLink to="/Shop">Conception</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/Reservation">Réservation</NavLink>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -427,7 +424,7 @@ function Menu() {
                     setIsVisibleCategoryMobile(!isVisibleCategoryMobile);
                   }}
                 >
-                  <span className="fi-rs-apps"></span>Catégories
+                  <span className="fi-rs-apps"></span>Services
                 </a>
                 <div
                   className={
@@ -437,15 +434,12 @@ function Menu() {
                   }
                 >
                   <ul>
-                    {categoryList.map((productdata) => (
-                      <li key={productdata.Category_id}>
-                        <NavLink
-                          to={"/Categorytype?q=" + productdata.Category_Name}
-                        >
-                          {productdata.Category_Name}
-                        </NavLink>
-                      </li>
-                    ))}
+                    <li>
+                      <NavLink to="/Shop">Conception</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/Reservation">Réservation</NavLink>
+                    </li>
                   </ul>
                 </div>
               </div>
