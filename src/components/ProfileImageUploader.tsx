@@ -58,7 +58,7 @@ const ProfileImageUploader: React.FC<Props> = ({ id, title }) => {
       } else {
         console.log(data.message);
         if (data.message == "Invalid size") {
-          setMessage("La taille de l'image ne doit pas dépasser 1 Mo.");
+          setMessage("La taille de l'image ne doit pas dépasser 800Kb.");
         }
         if (data.message == "Invalid type") {
           setMessage(

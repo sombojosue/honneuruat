@@ -38,6 +38,10 @@
   background-color: #e30613;
 }
 
+.sort-by-dropdown .active {
+  background-color: #e30613 !important;
+}
+
 #slide-desktop {
   display: block;
 }

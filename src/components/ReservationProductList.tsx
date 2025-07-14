@@ -17,8 +17,8 @@ const ReservationProduct: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<Product[]>([]);
-  const [visibleCount, setVisibleCount] = useState(3);
-  const itemsPerPage = 3;
+  const [visibleCount, setVisibleCount] = useState(12);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     const fetchSubcategories = async () => {
