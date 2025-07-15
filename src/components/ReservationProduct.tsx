@@ -43,7 +43,7 @@ const ReservationProduct: React.FC = () => {
     <>
       {data.slice(0, visibleCount).map((product) => (
         <div
-          className="col-lg-4 col-md-4 col-sm-6 col-xs-6"
+          className="col-lg-3 col-md-4 col-sm-6 col-xs-6"
           key={product.Product_id}
         >
           <div className="product-cart-wrap mb-30">

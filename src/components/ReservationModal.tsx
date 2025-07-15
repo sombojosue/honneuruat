@@ -168,16 +168,6 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
               className="border p-4 rounded shadow"
               onSubmit={handleReservation}
             >
-              {message && (
-                <div className="alert alert-danger" role="alert">
-                  {message}
-                </div>
-              )}
-              {messageSuccess && (
-                <div className="alert alert-success" role="alert">
-                  {messageSuccess}
-                </div>
-              )}
               <label htmlFor="name">Nom complet</label>
               <input
                 id="name"
@@ -257,6 +247,17 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
                 >
                   Soumettre
                 </button>
+              )}
+
+              {message && (
+                <div className="alert alert-danger mt-2" role="alert">
+                  {message}
+                </div>
+              )}
+              {messageSuccess && (
+                <div className="alert alert-success mt-2" role="alert">
+                  {messageSuccess}
+                </div>
               )}
             </form>
             <div className="media-options"></div>
