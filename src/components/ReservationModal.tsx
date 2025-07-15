@@ -21,6 +21,21 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
   const [messageSuccess, setMessageSuccess] = useState("");
   const [btnOpacity, setBtnOpacity] = useState(true);
 
+  const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD Hide past date
+  const min = "08:30";
+  const max = "17:30";
+
+  const handleChangeTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    if (value >= min && value <= max) {
+      setTime(value);
+    } else {
+      alert("Veuillez choisir une heure entre 08:30 et 17:30.");
+      e.target.value = "";
+    }
+  };
+
   //Submit register form for login account
   const handleReservation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,6 +79,12 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
         setMessageSuccess(
           "✅ Votre réservation a été effectuée avec succès. Merci pour votre confiance !"
         );
+        setName("");
+        setEmail("");
+        setDate("");
+        setDescription("");
+        setTime("");
+        setPhone("");
       } else {
         setBtnOpacity(true);
         setMessageSuccess("");
@@ -191,7 +212,10 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
                 placeholder="Time"
                 className="block w-full mb-2 border p-2 rounded"
                 value={time}
-                onChange={(e) => setTime(e.target.value)}
+                min={min}
+                max={max}
+                step="60" // optional: 60s step for cleaner selection
+                onChange={handleChangeTime}
               />
 
               <label htmlFor="date">Date de réservation</label>
@@ -201,6 +225,7 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
                 placeholder="Date"
                 className="block w-full mb-2 border p-2 rounded"
                 value={date}
+                min={today} // disables past dates
                 onChange={(e) => setDate(e.target.value)}
               />
 
@@ -222,7 +247,7 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
                   type="submit"
                   className="bg-blue-600 text-white px-4 py-2 rounded w-full"
                 >
-                  Envoyer
+                  Soumettre
                 </button>
               ) : (
                 <button
@@ -230,7 +255,7 @@ const MyModal: React.FC<MyModalProps> = ({ id, title, body }) => {
                   className="bg-blue-600 text-white px-4 py-2 rounded w-full"
                   disabled
                 >
-                  Submit
+                  Soumettre
                 </button>
               )}
             </form>
