@@ -117,7 +117,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
         return true;
       } else {
+        //Clear all the local Storage information
+        localStorage.setItem("userName", "");
+        localStorage.setItem("userAvatar", "");
+        localStorage.setItem("userEmail", "");
+        localStorage.setItem("userPhone", "");
+        localStorage.setItem("userToken", "");
+        localStorage.setItem("userAddress", "");
         alert(data.message);
+
         return false;
       }
     } catch (error) {
