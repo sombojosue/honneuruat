@@ -16,12 +16,21 @@ const ProductLoader = () => {
           >
             <div className="product-skeleton">
               <Skeleton height={200} borderRadius={12} width={"100%"} />
-              <Skeleton
-                height={28}
-                style={{ marginTop: "12px", width: "90%" }}
-              />
-              <Skeleton width={"80%"} height={22} />
-              <Skeleton width={"80%"} height={22} />
+              <Skeleton height={28} width={70} style={{ marginTop: "12px" }} />
+              <Skeleton width={"100%"} height={22} />
+              {/* Price and cart section */}
+              <div className="row mt-2 product-action-update">
+                <div className="col-6 product-price">
+                  <span>
+                    <Skeleton width={70} height={22} />
+                  </span>
+                </div>
+
+                <div className="col-6">
+                  <Skeleton width={70} height={22} />
+                </div>
+              </div>
+              {/* End of price and cart */}
             </div>
           </div>
         ))}

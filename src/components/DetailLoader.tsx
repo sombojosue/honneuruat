@@ -39,7 +39,7 @@ const DetailLoader = () => {
                     <div className="product-detail-rating">
                       <div className="pro-details-brand">
                         <span className="detail-qty">
-                          <Skeleton width={"100%"} height={22} />
+                          <Skeleton width={120} height={30} />
                         </span>
                       </div>
                       <div className="product-rate-cover text-end">
@@ -57,31 +57,30 @@ const DetailLoader = () => {
                     <div className="clearfix product-price-cover">
                       <div className="product-price primary-color float-left">
                         <span className="detail-qty">
-                          <Skeleton width={"100%"} height={22} />
+                          <Skeleton width={120} height={30} />
                         </span>
                       </div>
                     </div>
                     <div className="bt-1 border-color-1 mt-15 mb-15"></div>
                     <div className="short-desc mb-30">
                       <Skeleton
-                        height={28}
+                        height={70}
                         style={{
                           marginTop: "12px",
                           width: "100%",
-                          height: "150px",
                         }}
                       />
                     </div>
                     <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                     <div className="detail-extralink">
-                      <div className="detail-qty border radius">
+                      <div className="detail-qty">
                         <span>
-                          <Skeleton width={"80%"} height={22} />
+                          <Skeleton width={80} height={30} />
                         </span>
                       </div>
-                      <div className="detail-qty border radius">
+                      <div className="detail-qty">
                         <span>
-                          <Skeleton width={"80%"} height={22} />
+                          <Skeleton width={80} height={30} />
                         </span>
                       </div>
                     </div>
@@ -97,14 +96,7 @@ const DetailLoader = () => {
                       data-bs-toggle="tab"
                       href="#Description"
                     >
-                      <Skeleton
-                        height={28}
-                        style={{
-                          marginTop: "12px",
-                          width: "100%",
-                          height: "150px",
-                        }}
-                      />
+                      Description
                     </a>
                   </li>
                   <li className="nav-item">
@@ -121,11 +113,10 @@ const DetailLoader = () => {
                 <div className="tab-content shop_info_tab entry-main-content">
                   <div className="tab-pane fade show active" id="Description">
                     <Skeleton
-                      height={28}
+                      height={70}
                       style={{
                         marginTop: "12px",
                         width: "100%",
-                        height: "150px",
                       }}
                     />
                   </div>

@@ -116,9 +116,10 @@
 }
 
 .product-cart-wrap .product-content-wrap h2 {
-  font-size: 16px;
-  font-weight: 600;
-  height: 65px;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  height: 70px !important;
+  margin-bottom: 10px !important;
 }
 
 /* --------- ANIMATION ----------- */
@@ -444,9 +445,10 @@ a.google span {
   }
 
   .product-cart-wrap .product-content-wrap h2 {
-    font-size: 16px;
-    font-weight: 600;
-    height: 75px;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    height: 90px !important;
+    margin-bottom: 10px !important;
   }
 
   #slide-mobile {
@@ -468,9 +470,10 @@ a.google span {
   }
 
   .product-cart-wrap .product-content-wrap h2 {
-    font-size: 16px;
-    font-weight: 600;
-    height: 70px;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    height: 75px !important;
+    margin-bottom: 10px !important;
   }
 }
 

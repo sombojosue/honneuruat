@@ -168,6 +168,16 @@ const ReservationData: React.FC = () => {
                         </div>
                       </div>
 
+                      <div className="clearfix product-price-cover">
+                        <div className="product-price primary-color float-left">
+                          <ins>
+                            <span className="text-brand" id="price-show">
+                              {product.Price} $
+                            </span>
+                          </ins>
+                        </div>
+                      </div>
+
                       <div className="bt-1 border-color-1 mt-15 mb-15"></div>
                       <div className="short-desc mb-30">
                         {product.Product_description}

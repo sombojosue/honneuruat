@@ -117,6 +117,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
         return true;
       } else {
+        alert(data.message);
         return false;
       }
     } catch (error) {
