@@ -46,17 +46,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         );
 
         const text = await res.text();
-        console.log("Raw response from API:", text); // ✅ Debug raw response
+        //console.log("Raw response from API:", text); // ✅ Debug raw response
 
         const data = JSON.parse(text);
         if (data.success) {
-          console.log("Setting totalItems:", data.totalItems); // ✅ Debug value
+          //console.log("Setting totalItems:", data.totalItems); // ✅ Debug value
           setTotalItems(data.totalItems);
         } else {
-          console.warn("Cart count API error:", data.message);
+          //console.warn("Cart count API error:", data.message);
         }
       } catch (err) {
-        console.error("Error loading cart count:", err);
+        //console.error("Error loading cart count:", err);
       }
     };
 
@@ -162,7 +162,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return false;
       }
     } catch (error) {
-      console.error("Erreur lors de la suppression:", error);
+      //console.error("Erreur lors de la suppression:", error);
       alert("Erreur réseau.");
       return false;
     }

@@ -1339,12 +1339,12 @@ textarea:focus {
   color: #ffffff;
   border: none;
   background-color: #e30613;
-  border: 1px solid #046963;
+  border: 1px solid #e30613;
   border-radius: 5px;
 }
 
 .contact-from-area .contact-form-style button:hover {
-  background-color: #046963 !important;
+  background-color: #e30613 !important;
 }
 
 .form-group {

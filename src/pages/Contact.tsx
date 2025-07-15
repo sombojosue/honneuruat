@@ -60,6 +60,12 @@ function Contact() {
       } else {
         setBtnOpacity(true);
 
+        if (result.message == "Traitement de mail") {
+          setMessage(
+            "Votre message est en cours de traitement, nous vous répondrons dans les plus brefs délais."
+          );
+        }
+
         if (result.message == "Invalid empty name") {
           setMessage("Le nom ne peut pas être vide.");
         }
