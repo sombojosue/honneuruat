@@ -16,10 +16,6 @@ import {
 import storeImg from "../assets/imgs/theme/app-store.jpg";
 import appImg from "../assets/imgs/theme/payment-method.png";
 import { urlApp } from "../components/Variables";
-import facebook from "../assets/imgs/icons/facebook.png";
-import instagram from "../assets/imgs/icons/instagram.png";
-import youtube from "../assets/imgs/icons/youtube.png";
-import twitter from "../assets/imgs/icons/twitter.png";
 
 //import "../App.css";
 
@@ -193,23 +189,65 @@ function Footer() {
                   className="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0"
                   style={{ display: "block !important" }}
                 >
-                  <a href={facebookurl}>
-                    <img src={facebook} alt="facebook" />
-                  </a>
-                  <a href={twitterurl}>
-                    <img src={twitter} alt="twitter" width={24} height={24} />
-                  </a>
-                  <a href={instagramurl}>
-                    <img
-                      src={instagram}
-                      alt="instagram"
-                      width={24}
-                      height={24}
-                    />
+                  <a
+                    href={facebookurl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4H15.8c-1.2 0-1.6.7-1.6 1.5V12h2.7l-.4 3h-2.3v7A10 10 0 0 0 22 12z" />
+                    </svg>
                   </a>
 
-                  <a href={youtubeurl}>
-                    <img src={youtube} alt="youtube" width={24} height={24} />
+                  <a
+                    href={twitterurl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.4 1.6a9.07 9.07 0 0 1-2.86 1.09 4.52 4.52 0 0 0-7.71 4.12A12.82 12.82 0 0 1 3 2.16 4.52 4.52 0 0 0 4.4 8.69a4.48 4.48 0 0 1-2-.56v.06a4.51 4.51 0 0 0 3.63 4.42 4.48 4.48 0 0 1-2 .07 4.52 4.52 0 0 0 4.21 3.12A9.05 9.05 0 0 1 2 19.54a12.78 12.78 0 0 0 6.92 2.03c8.3 0 12.84-6.87 12.84-12.84 0-.2 0-.39-.01-.58A9.22 9.22 0 0 0 23 3z" />
+                    </svg>
+                  </a>
+
+                  <a
+                    href={instagramurl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm4.5 3a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5-1a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    </svg>
+                  </a>
+
+                  <a
+                    href={youtubeurl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M19.615 3.184C18.403 3 12 3 12 3s-6.403 0-7.615.184A3.79 3.79 0 0 0 1.184 6.385 39.98 39.98 0 0 0 1 12c0 1.977.066 3.827.184 5.615a3.79 3.79 0 0 0 3.201 3.201C5.597 21 12 21 12 21s6.403 0 7.615-.184a3.79 3.79 0 0 0 3.201-3.201C21.934 15.827 22 13.977 22 12c0-1.977-.066-3.827-.184-5.615a3.79 3.79 0 0 0-3.201-3.201zM10 15.5v-7l6 3.5-6 3.5z" />
+                    </svg>
                   </a>
                 </div>
               </div>

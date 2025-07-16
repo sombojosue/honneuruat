@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import "../assets/css/main.css";
 import { urlApp } from "./Variables";
-import ProductLoader from "./ProductLoader";
+import ReservationLoader from "./ReservationLoader";
 
 const ReservationProduct: React.FC = () => {
   type Product = {
@@ -36,7 +36,7 @@ const ReservationProduct: React.FC = () => {
     fetchSubcategories();
   }, []);
 
-  if (loading) return <ProductLoader />;
+  if (loading) return <ReservationLoader />;
   if (error) return <p className="text-danger">{error}</p>;
 
   return (

@@ -67,6 +67,10 @@
   min-height: 8px !important;
 }
 
+.mobile-social-icon a {
+  color: #465b52 !important;
+}
+
 .btncart {
   width: 13em;
   height: 3em;
