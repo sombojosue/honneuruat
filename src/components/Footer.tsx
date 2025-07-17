@@ -13,7 +13,7 @@ import {
   instagramurl,
   youtubeurl,
 } from "./Variables";
-import storeImg from "../assets/imgs/theme/app-store.jpg";
+import storeImg from "../assets/imgs/theme/google-play.png";
 import appImg from "../assets/imgs/theme/payment-method.png";
 import { urlApp } from "../components/Variables";
 
@@ -294,10 +294,10 @@ function Footer() {
                 <li></li>
 
                 <li>
-                  <NavLink to="/Cart">Voir Cart</NavLink>
+                  <NavLink to="/Cart">Cart</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/Wishlist">Voir Wishlist</NavLink>
+                  <NavLink to="/Wishlist">Wishlist</NavLink>
                 </li>
               </ul>
             </div>
@@ -314,7 +314,7 @@ function Footer() {
                     </a>
 
                     <a href="#" className="hover-up">
-                      <img src="assets/imgs/theme/google-play.jpg" alt="" />
+                      {/*<img src="assets/imgs/theme/google-play.png" alt="" />*/}
                     </a>
                   </div>
                 </div>

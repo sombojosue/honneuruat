@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import "../assets/css/main.css";
 import { urlApp } from "./Variables";
 import Modal from "./Modal";
-import PaymentModal from "./PaymentModal";
+//import PaymentModal from "./PaymentModal";
+import FlutterwavePayment from "./FlutterwavePayment.tsx";
 import { useCart } from "./CartContext";
 
 type Product = {
@@ -17,7 +18,9 @@ type Product = {
 function Product() {
   const [data, setData] = useState<Product[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const userEmail = localStorage.getItem("userEmail");
+  const userEmail = localStorage.getItem("userEmail") || "";
+  const userPhone = localStorage.getItem("userPhone") || "";
+  const userName = localStorage.getItem("userName") || "";
 
   useEffect(() => {
     if (userEmail) {
@@ -188,18 +191,16 @@ function Product() {
                       </tbody>
                     </table>
                     <div className="form-group col-lg-6">
-                      {total > 0 && (
-                        <div className="form-group col-lg-6">
-                          <button
-                            className="btn btn-sm"
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#myModalPayment"
-                          >
-                            <i className="fi-rs-money mr-10"></i> Pay
-                          </button>
-                        </div>
-                      )}
+                      <div className="form-group col-lg-12">
+                        {total > 0 && (
+                          <FlutterwavePayment
+                            amount={total}
+                            email={userEmail}
+                            name={userName}
+                            phone={userPhone}
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -209,7 +210,7 @@ function Product() {
         </div>
       </section>
 
-      <PaymentModal id="myModalPayment" title="Paiement" total={total} />
+      {/*<PaymentModal id="myModalPayment" title="Paiement" total={total} />*/}
     </>
   );
 }

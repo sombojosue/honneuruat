@@ -3,8 +3,11 @@ import Menu from "../components/Menu.tsx";
 import Footer from "../components/Footer.tsx";
 import avatar from "../assets/imgs/file.png";
 import ScrollToTop from "../components/ScrollToTop.tsx";
+import { useNavigate } from "react-router-dom";
 
-function About() {
+function NotFound() {
+  const navigate = useNavigate();
+
   return (
     <>
       <ScrollToTop />
@@ -23,7 +26,7 @@ function About() {
           </div>
 
           <section className="section-padding">
-            <div className="container pt-25">
+            <div className="container pt-25 mt-50">
               <div className="row">
                 <div className="col-lg-12 align-self-center mb-lg-0 mb-4">
                   <center>
@@ -42,8 +45,23 @@ function About() {
                     <p>
                       Désolé, le serveur ne trouve pas la ressource demandée.
                     </p>
+
+                    <button
+                      onClick={() => navigate("/")}
+                      className="btn btn-sm mt-10"
+                    >
+                      Aller à l'accueil&nbsp;&#8594;
+                    </button>
                   </center>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="section-padding">
+            <div className="container pt-50 mb-80">
+              <div className="row">
+                <div className="col-lg-12 align-self-center mb-lg-0 mb-4"></div>
               </div>
             </div>
           </section>
@@ -54,4 +72,4 @@ function About() {
   );
 }
 
-export default About;
+export default NotFound;
