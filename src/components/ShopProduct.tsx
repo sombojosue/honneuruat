@@ -166,7 +166,10 @@ function CartProduct() {
                     className={`dropdown-item ${
                       sortOption === "priceasc" ? "active" : ""
                     }`}
-                    onClick={() => setSortOption("priceasc")}
+                    onClick={() => {
+                      setSortOption("priceasc");
+                      setFilterValue(false);
+                    }}
                   >
                     Prix: De bas en haut
                   </button>
@@ -176,7 +179,10 @@ function CartProduct() {
                     className={`dropdown-item ${
                       sortOption === "pricedesc" ? "active" : ""
                     }`}
-                    onClick={() => setSortOption("pricedesc")}
+                    onClick={() => {
+                      setSortOption("pricedesc");
+                      setFilterValue(false);
+                    }}
                   >
                     Prix: De haut en bas
                   </button>

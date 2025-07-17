@@ -28,11 +28,17 @@ function SearchResults() {
   // Lazy loading state
   const [visibleCount, setVisibleCount] = useState(12);
   const itemsPerPage = 12;
+  const [sortOption, setSortOption] = useState<string>("featured");
+  const [filterValue, setFilterValue] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const state = location.state as LocationState | null;
+
+  const openDrowbox = () => {
+    setFilterValue((prev) => !prev);
+  };
 
   const handleAddToWishlist = async (itemId: number) => {
     const userId = localStorage.getItem("userToken") || "";
@@ -57,6 +63,20 @@ function SearchResults() {
     } catch (error) {
       console.error("Wishlist error:", error);
       alert("Une erreur est survenue lors de l'ajout à la liste.");
+    }
+  };
+
+  const sortProducts = (option: string, products: SearchResultItem[]) => {
+    switch (option) {
+      case "priceasc":
+        return [...products].sort((a, b) => a.Price - b.Price);
+
+      case "pricedesc":
+        return [...products].sort((a, b) => b.Price - a.Price);
+      // You can implement date sort if date exists in data
+
+      default:
+        return [...products];
     }
   };
 
@@ -87,7 +107,7 @@ function SearchResults() {
     }
   };
 
-  if (!state || !state.results) {
+  if (!state || !state.results || state.results.length === 0) {
     return (
       <div className="p-4">
         <p>No results found. Please search again.</p>
@@ -101,6 +121,12 @@ function SearchResults() {
     );
   }
 
+  const dataResult = state.results;
+  const sortedData = sortProducts(sortOption, dataResult).slice(
+    0,
+    visibleCount
+  );
+
   return (
     <>
       <div className="shop-product-fillter">
@@ -113,8 +139,8 @@ function SearchResults() {
           </p>
         </div>
         <div className="sort-by-product-area">
-          <div className="sort-by-cover">
-            <div className="sort-by-product-wrap">
+          <div className={filterValue ? "sort-by-cover show" : "sort-by-cover"}>
+            <div className="sort-by-product-wrap" onClick={openDrowbox}>
               <div className="sort-by">
                 <span>
                   <i className="fi-rs-apps-sort"></i>Trier par:
@@ -122,39 +148,63 @@ function SearchResults() {
               </div>
               <div className="sort-by-dropdown-wrap">
                 <span>
-                  {" "}
-                  Featured <i className="fi-rs-angle-small-down"></i>
+                  {sortOption === "priceasc"
+                    ? "Prix ↑"
+                    : sortOption === "pricedesc"
+                    ? "Prix ↓"
+                    : "Featured"}{" "}
+                  <i className="fi-rs-angle-small-down"></i>
                 </span>
               </div>
             </div>
-            <div className="sort-by-dropdown">
+            <div
+              className={
+                filterValue ? "sort-by-dropdown show" : "sort-by-dropdown"
+              }
+            >
               <ul>
                 <li>
-                  <a className="active">Featured</a>
+                  <button
+                    className={`dropdown-item ${
+                      sortOption === "featured" ? "active" : ""
+                    }`}
+                    onClick={() => setSortOption("featured")}
+                  >
+                    Featured
+                  </button>
                 </li>
                 <li>
-                  <a href="sorted.php?order=priceasc">Prix: De bas en haut</a>
+                  <button
+                    className={`dropdown-item ${
+                      sortOption === "priceasc" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSortOption("priceasc");
+                      setFilterValue(false);
+                    }}
+                  >
+                    Prix: De bas en haut
+                  </button>
                 </li>
                 <li>
-                  <a href="sorted.php?order=pricedesc">Prix: De haut en bas</a>
-                </li>
-                <li>
-                  <a href="sorted.php?order=datedesc">
-                    La date la plus récente
-                  </a>
-                </li>
-
-                <li>
-                  <a href="sorted.php?order=datedesc">
-                    La date la plus ancienne
-                  </a>
+                  <button
+                    className={`dropdown-item ${
+                      sortOption === "pricedesc" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSortOption("pricedesc");
+                      setFilterValue(false);
+                    }}
+                  >
+                    Prix: De haut en bas
+                  </button>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      {state.results.slice(0, visibleCount).map((product, index) => (
+      {sortedData.map((product, index) => (
         <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" key={index}>
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
