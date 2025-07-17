@@ -15,7 +15,7 @@ const FlutterwavePayment: React.FC<FlutterwaveProps> = ({
   phone,
 }) => {
   const config = {
-    public_key: "65a26393-f508-4549-b278-7f7a50f0529f",
+    public_key: "FLWPUBK_TEST-65a26393-f508-4549-b278-7f7a50f0529f",
     tx_ref: Date.now().toString(),
     amount: amount,
     currency: "USD",
