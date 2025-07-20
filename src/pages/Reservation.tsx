@@ -5,7 +5,7 @@ import Footer from "../components/Footer.tsx";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import ScrollToTop from "../components/ScrollToTop.tsx";
-import { urlApp } from "../components/Variables.tsx";
+import { urlAppApi } from "../components/Variables.tsx";
 import ReservationProductList from "../components/ReservationProductList.tsx";
 
 function Shop() {
@@ -21,7 +21,7 @@ function Shop() {
     const fetchCategoryList = async () => {
       try {
         const response = await axios.get<Subcategory[]>(
-          `${urlApp}productcategorylist.php`
+          `${urlAppApi}productcategorylist.php`
         );
         setCategoryList(response.data);
         console.log("same category " + response.data);
