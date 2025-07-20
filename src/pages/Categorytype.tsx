@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import ProductCategory from "../components/ProductCategory.tsx";
 import ScrollToTop from "../components/ScrollToTop.tsx";
 import axios from "axios";
-import { urlApp } from "../components/Variables.tsx";
+import { urlAppApi } from "../components/Variables.tsx";
 
 function Categorytype() {
   type Subcategory = {
@@ -21,7 +21,7 @@ function Categorytype() {
     const fetchCategoryList = async () => {
       try {
         const response = await axios.get<Subcategory[]>(
-          `${urlApp}productcategorylist.php`
+          `${urlAppApi}productcategorylist.php`
         );
         setCategoryList(response.data);
         //console.log("same category " + response.data);

@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import { urlApp, urlAppApi } from "./Variables";
 import ProductLoader from "./ProductLoader";
 import { addToWishlist } from "./AddToWishlist.tsx";
+import Modal from "./Modal.tsx";
 
 type Subcategory = {
   Product_name: string;
@@ -36,6 +37,7 @@ const ProductCategory: React.FC = () => {
   const [wishlistIds, setWishlistIds] = useState<number[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [visibleCount, setVisibleCount] = useState(12);
+  const userId = localStorage.getItem("userToken") || "";
   const itemsPerPage = 12;
 
   const openDropdown = () => {
@@ -89,12 +91,6 @@ const ProductCategory: React.FC = () => {
   );
 
   const handleAddToWishlist = async (itemId: number) => {
-    const userId = localStorage.getItem("userToken") || "";
-    if (!userId) {
-      alert("Veuillez vous connecter pour ajouter à la liste de souhaits.");
-      return;
-    }
-
     try {
       const response = await addToWishlist(String(itemId), userId);
       if (response.success) {
@@ -249,18 +245,30 @@ const ProductCategory: React.FC = () => {
                     <i className="fi-rs-eye"></i>
                   </NavLink>
 
-                  <button
-                    className="action-btn hover-up loaderbtn-"
-                    onClick={() => handleAddToWishlist(product.Product_id)}
-                  >
-                    <i
-                      className={
-                        wishlistIds.includes(product.Product_id)
-                          ? "fi-rs-check"
-                          : "fi-rs-heart"
-                      }
-                    />
-                  </button>
+                  {!userId && (
+                    <button
+                      className="action-btn hover-up"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      <i className="fi-rs-heart" />
+                    </button>
+                  )}
+
+                  {userId && (
+                    <button
+                      className="action-btn hover-up"
+                      onClick={() => handleAddToWishlist(product.Product_id)}
+                    >
+                      <i
+                        className={
+                          wishlistIds.includes(product.Product_id)
+                            ? "fi-rs-check"
+                            : "fi-rs-heart"
+                        }
+                      />
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="product-content-wrap">
@@ -280,19 +288,32 @@ const ProductCategory: React.FC = () => {
                     <span>{product.Price}$</span>
                   </div>
                   <div className="col-6">
-                    <button
-                      className="action-btn hover-up"
-                      style={{ float: "right" }}
-                      onClick={() => handleAddToCart(product)}
-                    >
-                      <i
-                        className={
-                          successIds.includes(product.Product_id)
-                            ? "fi-rs-check"
-                            : "fi-rs-shopping-bag-add"
-                        }
-                      ></i>
-                    </button>
+                    {!userId && (
+                      <button
+                        className="action-btn hover-up"
+                        style={{ float: "right" }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        <i className="fi-rs-shopping-bag-add"></i>
+                      </button>
+                    )}
+
+                    {userId && (
+                      <button
+                        className="action-btn hover-up"
+                        style={{ float: "right" }}
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        <i
+                          className={
+                            successIds.includes(product.Product_id)
+                              ? "fi-rs-check"
+                              : "fi-rs-shopping-bag-add"
+                          }
+                        ></i>
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -312,6 +333,12 @@ const ProductCategory: React.FC = () => {
           </button>
         </div>
       )}
+
+      <Modal
+        id="exampleModal"
+        title="Se connecter"
+        body="Ceci est le contenu de la modal Bootstrap."
+      />
     </>
   );
 };

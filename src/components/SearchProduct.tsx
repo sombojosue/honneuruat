@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import "../assets/css/main.css";
 import { urlApp } from "./Variables";
 import { addToWishlist } from "./AddToWishlist.tsx";
+import Modal from "./Modal.tsx";
 
 export interface SearchResultItem {
   Picture: string;
@@ -30,6 +31,7 @@ function SearchResults() {
   const itemsPerPage = 12;
   const [sortOption, setSortOption] = useState<string>("featured");
   const [filterValue, setFilterValue] = useState(false);
+  const userId = localStorage.getItem("userToken") || "";
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -231,18 +233,30 @@ function SearchResults() {
                   <i className="fi-rs-eye"></i>
                 </NavLink>
 
-                <button
-                  className="action-btn hover-up loaderbtn-"
-                  onClick={() => handleAddToWishlist(product.Product_id)}
-                >
-                  <i
-                    className={
-                      wishlistIds.includes(product.Product_id)
-                        ? "fi-rs-check"
-                        : "fi-rs-heart"
-                    }
-                  />
-                </button>
+                {!userId && (
+                  <button
+                    className="action-btn hover-up"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    <i className="fi-rs-heart" />
+                  </button>
+                )}
+
+                {userId && (
+                  <button
+                    className="action-btn hover-up"
+                    onClick={() => handleAddToWishlist(product.Product_id)}
+                  >
+                    <i
+                      className={
+                        wishlistIds.includes(product.Product_id)
+                          ? "fi-rs-check"
+                          : "fi-rs-heart"
+                      }
+                    />
+                  </button>
+                )}
               </div>
             </div>
             <div className="product-content-wrap">
@@ -264,20 +278,32 @@ function SearchResults() {
                 </div>
 
                 <div className="col-6">
-                  <button
-                    aria-label="Ajouter au panier"
-                    className="action-btn hover-up"
-                    style={{ float: "right" }}
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    <i
-                      className={
-                        successIds.includes(product.Product_id)
-                          ? "fi-rs-check"
-                          : "fi-rs-shopping-bag-add"
-                      }
-                    ></i>
-                  </button>
+                  {!userId && (
+                    <button
+                      className="action-btn hover-up"
+                      style={{ float: "right" }}
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      <i className="fi-rs-shopping-bag-add"></i>
+                    </button>
+                  )}
+
+                  {userId && (
+                    <button
+                      className="action-btn hover-up"
+                      style={{ float: "right" }}
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      <i
+                        className={
+                          successIds.includes(product.Product_id)
+                            ? "fi-rs-check"
+                            : "fi-rs-shopping-bag-add"
+                        }
+                      ></i>
+                    </button>
+                  )}
                 </div>
               </div>
               {/* End of price and cart */}
@@ -296,6 +322,12 @@ function SearchResults() {
           </button>
         </div>
       )}
+
+      <Modal
+        id="exampleModal"
+        title="Se connecter"
+        body="Ceci est le contenu de la modal Bootstrap."
+      />
     </>
   );
 }
