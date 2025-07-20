@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../assets/css/main.css";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
 import { NavLink } from "react-router-dom";
 import ReservationModal from "./ReservationModal";
 import DetailLoader from "./DetailLoader";
@@ -53,7 +53,7 @@ const ReservationData: React.FC = () => {
 
       try {
         const response = await axios.get<Subcategory[]>(
-          `${urlApp}productdetail.php?query=${sanitizeInput(categoryId)}`
+          `${urlAppApi}productdetail.php?query=${sanitizeInput(categoryId)}`
         );
 
         if (!response.data || response.data.length === 0) {
@@ -80,7 +80,7 @@ const ReservationData: React.FC = () => {
     const fetchCategoryList = async () => {
       try {
         const response = await axios.get<Subcategory[]>(
-          `${urlApp}productcategorylist.php`
+          `${urlAppApi}productcategorylist.php`
         );
         setCategoryList(response.data);
       } catch (err) {

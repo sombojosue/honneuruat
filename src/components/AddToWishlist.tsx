@@ -1,7 +1,7 @@
-import { urlApp } from "./Variables";
+import { urlAppApi } from "./Variables";
 
 export const addToWishlist = async (itemId: string, userId: string) => {
-  const response = await fetch(`${urlApp}productwhiteinsert.php`, {
+  const response = await fetch(`${urlAppApi}productwhiteinsert.php`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

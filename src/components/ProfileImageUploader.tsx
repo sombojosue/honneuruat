@@ -1,6 +1,6 @@
 // MyModal.tsx
 import React, { useState, useEffect } from "react";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
 
 type Props = {
   id: string;
@@ -35,13 +35,10 @@ const ProfileImageUploader: React.FC<Props> = ({ id, title }) => {
     formData.append("token", localStorage.getItem("userToken") || "");
 
     try {
-      const response = await fetch(
-        "https://inovsell.com/productupdateuserimage.php",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${urlAppApi}productupdateuserimage.php`, {
+        method: "POST",
+        body: formData,
+      });
 
       const data = await response.json();
 

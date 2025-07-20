@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { urlApp } from "./Variables";
+import { urlAppApi } from "./Variables";
 
 export type CartItem = {
   id: number;
@@ -42,7 +42,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
       try {
         const res = await fetch(
-          `${urlApp}productgetcartcount.php?token=${usertoken}&email=${email}`
+          `${urlAppApi}productgetcartcount.php?token=${usertoken}&email=${email}`
         );
 
         const text = await res.text();
@@ -74,7 +74,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return false;
     }
 
-    const endpoint = `${urlApp}productcartinsert.php`;
+    const endpoint = `${urlAppApi}productcartinsert.php`;
 
     try {
       const response = await fetch(endpoint, {
@@ -145,7 +145,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
 
     try {
-      const response = await fetch(`${urlApp}productcartremove.php`, {
+      const response = await fetch(`${urlAppApi}productcartremove.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

@@ -8,6 +8,7 @@ import {
   twitterurl,
   instagramurl,
   youtubeurl,
+  urlAppApi,
 } from "./Variables";
 import logoOne from "../assets/imgs/theme/logoone.png";
 import heartShopping from "../assets/imgs/theme/icons/icon-heart.svg";
@@ -43,9 +44,9 @@ function Menu() {
 
     let urlapi = "";
     if (category == "") {
-      urlapi = `https://inovsell.com/productsearch.php?query=${query}`;
+      urlapi = `${urlAppApi}productsearch.php?query=${query}`;
     } else {
-      urlapi = `https://inovsell.com/productsearch.php?query=${query}&category=${category}`;
+      urlapi = `${urlAppApi}productsearch.php?query=${query}&category=${category}`;
     }
 
     // Example API call — replace this URL with your real endpoint
@@ -68,7 +69,7 @@ function Menu() {
     const fetchCategoryList = async () => {
       try {
         const response = await axios.get<Subcategory[]>(
-          `https://inovsell.com/productcategorylist.php`
+          `${urlAppApi}productcategorylist.php`
         );
         setCategoryList(response.data);
         //   console.log("same category " + response.data);

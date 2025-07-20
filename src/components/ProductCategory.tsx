@@ -4,7 +4,7 @@ import "../assets/css/main.css";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
 import ProductLoader from "./ProductLoader";
 import { addToWishlist } from "./AddToWishlist.tsx";
 
@@ -52,7 +52,7 @@ const ProductCategory: React.FC = () => {
     const fetchSubcategories = async () => {
       try {
         const response = await axios.get<Subcategory[]>(
-          `${urlApp}productcategory.php?query=${sanitizeInput(categoryId)}`
+          `${urlAppApi}productcategory.php?query=${sanitizeInput(categoryId)}`
         );
 
         if (response.data.length === 0) {

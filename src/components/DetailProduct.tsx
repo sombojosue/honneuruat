@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 //import { useState } from 'react'
 import "../assets/css/main.css";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
 
 function DetailProduct() {
   //To use API date we must first declare the variable type than we will call them inside the program.
@@ -15,7 +15,7 @@ function DetailProduct() {
   const [data, setData] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch(`${urlApp}products.php/products`)
+    fetch(`${urlAppApi}products.php/products`)
       .then((response) => response.json())
       .then((jsonData) => setData(jsonData))
       .catch((error) => console.error("Error fetching data:", error));

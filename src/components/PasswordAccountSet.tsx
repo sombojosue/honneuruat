@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { urlApp } from "./Variables";
+import { urlAppApi } from "./Variables";
 
 //Icon configuration
 
@@ -91,17 +91,20 @@ const PasswordAccountSet: React.FC = () => {
 
     setBtnOpacity(false);
     try {
-      const response = await fetch(`${urlApp}productupdateuserpassword.php`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          token,
-          passwordOne,
-          passwordTwo,
-        }),
-      });
+      const response = await fetch(
+        `${urlAppApi}productupdateuserpassword.php`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            token,
+            passwordOne,
+            passwordTwo,
+          }),
+        }
+      );
 
       const result = await response.json();
 

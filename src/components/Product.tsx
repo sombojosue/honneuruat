@@ -3,7 +3,7 @@ import { useCart } from "./CartContext";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import "../assets/css/main.css";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
 import ProductLoader from "./ProductLoader";
 import { addToWishlist } from "./AddToWishlist.tsx";
 
@@ -28,7 +28,7 @@ function Product() {
     const fetchSubcategories = async () => {
       try {
         const response = await axios.get<Product[]>(
-          `${urlApp}products.php?page=1`
+          `${urlAppApi}products.php?page=1`
         );
         setData(response.data);
       } catch (err) {

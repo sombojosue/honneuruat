@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/imgs/theme/logo.svg";
+import { urlAppApi } from "./Variables";
 import { urlApp } from "./Variables";
 
 type LoginFormProps = {
@@ -99,7 +100,7 @@ const LoginForm = ({ setActiveForm }: LoginFormProps) => {
     setBtnOpacity(false);
 
     try {
-      const response = await fetch(`${urlApp}productlogin.php`, {
+      const response = await fetch(`${urlAppApi}productlogin.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -256,7 +257,7 @@ const PasswordForm = ({ setActiveForm }: LoginFormProps) => {
     setBtnOpacity(false);
 
     try {
-      const response = await fetch(`${urlApp}productpwdreset.php`, {
+      const response = await fetch(`${urlAppApi}productpwdreset.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -379,7 +380,7 @@ const RegisterForm = ({ setActiveForm }: LoginFormProps) => {
 
     setBtnOpacity(false);
     try {
-      const response = await fetch(`${urlApp}productregister.php`, {
+      const response = await fetch(`${urlAppApi}productregister.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

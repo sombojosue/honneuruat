@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { urlApp } from "./Variables.tsx";
+import { urlApp, urlAppApi } from "./Variables.tsx";
 import { useCart } from "./CartContext";
 import "../assets/css/main.css";
 import axios from "axios";
@@ -52,7 +52,7 @@ function ShopWishlist() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get<Product[]>(
-          `${urlApp}productwhitelist.php?u=${userId}`
+          `${urlAppApi}productwhitelist.php?u=${userId}`
         );
         setData(response.data);
       } catch (err) {

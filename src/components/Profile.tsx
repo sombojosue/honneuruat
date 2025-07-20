@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MyModalLogOut from "./MyModalLogOut";
 import Modal from "./Modal";
 import ProfileImageUploader from "./ProfileImageUploader";
-import { urlApp } from "./Variables";
+import { urlAppApi } from "./Variables";
 
 const ProfileText: React.FC = () => {
   //const userAccount = localStorage.getItem("userName") || "";
@@ -53,7 +53,7 @@ const ProfileText: React.FC = () => {
 
     setBtnOpacity(false);
     try {
-      const response = await fetch(`${urlApp}productupdateuser.php`, {
+      const response = await fetch(`${urlAppApi}productupdateuser.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

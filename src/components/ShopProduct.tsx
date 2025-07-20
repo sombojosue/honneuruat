@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "./CartContext";
 import { NavLink } from "react-router-dom";
 import "../assets/css/main.css";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
 import axios from "axios";
 import ProductLoader from "./ProductLoader";
 import { addToWishlist } from "./AddToWishlist.tsx";
@@ -37,7 +37,7 @@ function CartProduct() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get<Product[]>(`${urlApp}products.php`);
+        const response = await axios.get<Product[]>(`${urlAppApi}products.php`);
         setDataResult(response.data);
       } catch (err) {
         console.error(err);

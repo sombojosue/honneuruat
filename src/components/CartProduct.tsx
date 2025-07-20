@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../assets/css/main.css";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
+
 import Modal from "./Modal";
 //import PaymentModal from "./PaymentModal";
 import FlutterwavePayment from "./FlutterwavePayment.tsx";
@@ -25,7 +26,7 @@ function Product() {
   useEffect(() => {
     if (userEmail) {
       setIsLoggedIn(true);
-      fetch(`${urlApp}productcart.php?u=${userEmail}`)
+      fetch(`${urlAppApi}productcart.php?u=${userEmail}`)
         .then((res) => res.json())
         .then((jsonData) => setData(jsonData))
         .catch((error) => console.error("Error fetching data:", error));

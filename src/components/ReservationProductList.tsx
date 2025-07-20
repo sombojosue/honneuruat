@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import "../assets/css/main.css";
-import { urlApp } from "./Variables";
+import { urlApp, urlAppApi } from "./Variables";
 import ReservationLoader from "./ReservationLoader";
 
 const ReservationProduct: React.FC = () => {
@@ -24,7 +24,7 @@ const ReservationProduct: React.FC = () => {
     const fetchSubcategories = async () => {
       try {
         const response = await axios.get<Product[]>(
-          `${urlApp}products.php/products`
+          `${urlAppApi}products.php/products`
         );
         setData(response.data);
       } catch (err) {
