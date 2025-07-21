@@ -30,7 +30,7 @@ const Banner = () => {
         {images.map((img, index) => (
           <Carousel.Item key={index}>
             <img
-              className="d-block w-100"
+              className="d-block w-100 border-radius-10"
               src={img.src}
               alt={img.alt}
               style={{ maxHeight: "470px" }}
