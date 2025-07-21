@@ -6,7 +6,7 @@ import Layout from "./pages/Layout";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Shop from "./pages/Shop";
+import Collections from "./pages/Collections";
 import Search from "./pages/Search";
 import Categorytype from "./pages/Categorytype";
 import Details from "./pages/Details";
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
         { index: true, element: <Index /> },
         { path: "About", element: <About /> },
         { path: "Contact", element: <Contact /> },
-        { path: "Shop", element: <Shop /> },
+        { path: "Collections", element: <Collections /> },
         { path: "Search", element: <Search /> },
         { path: "Categorytype", element: <Categorytype /> },
         { path: "Details", element: <Details /> },

@@ -11,7 +11,8 @@ import {
   facebookurl,
   twitterurl,
   instagramurl,
-  youtubeurl,
+  tiktokurl,
+  linkedinurl,
 } from "./Variables";
 import storeImg from "../assets/imgs/theme/google-play.png";
 import appImg from "../assets/imgs/theme/payment-method.png";
@@ -210,12 +211,13 @@ function Footer() {
                     rel="noopener noreferrer"
                   >
                     <svg
+                      xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
-                      fill="currentColor"
                       viewBox="0 0 24 24"
+                      fill="currentColor"
                     >
-                      <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.4 1.6a9.07 9.07 0 0 1-2.86 1.09 4.52 4.52 0 0 0-7.71 4.12A12.82 12.82 0 0 1 3 2.16 4.52 4.52 0 0 0 4.4 8.69a4.48 4.48 0 0 1-2-.56v.06a4.51 4.51 0 0 0 3.63 4.42 4.48 4.48 0 0 1-2 .07 4.52 4.52 0 0 0 4.21 3.12A9.05 9.05 0 0 1 2 19.54a12.78 12.78 0 0 0 6.92 2.03c8.3 0 12.84-6.87 12.84-12.84 0-.2 0-.39-.01-.58A9.22 9.22 0 0 0 23 3z" />
+                      <path d="M17.53 3H21L14.42 10.34L22.24 21H15.5L10.75 14.8L5.25 21H2L9.06 13.12L1.52 3H8.41L12.72 8.68L17.53 3ZM16.3 19H18.1L7.8 4.89H5.84L16.3 19Z" />
                     </svg>
                   </a>
 
@@ -235,18 +237,34 @@ function Footer() {
                   </a>
 
                   <a
-                    href={youtubeurl}
+                    href={linkedinurl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      fill="currentColor"
+                      fill="#000"
                     >
-                      <path d="M19.615 3.184C18.403 3 12 3 12 3s-6.403 0-7.615.184A3.79 3.79 0 0 0 1.184 6.385 39.98 39.98 0 0 0 1 12c0 1.977.066 3.827.184 5.615a3.79 3.79 0 0 0 3.201 3.201C5.597 21 12 21 12 21s6.403 0 7.615-.184a3.79 3.79 0 0 0 3.201-3.201C21.934 15.827 22 13.977 22 12c0-1.977-.066-3.827-.184-5.615a3.79 3.79 0 0 0-3.201-3.201zM10 15.5v-7l6 3.5-6 3.5z" />
+                      <path d="M20.45 20.45h-3.55v-5.4c0-1.29-.02-2.94-1.79-2.94-1.8 0-2.08 1.4-2.08 2.84v5.5H9.48V9h3.41v1.56h.05c.48-.9 1.66-1.84 3.42-1.84 3.66 0 4.34 2.41 4.34 5.54v6.19zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM6.97 20.45H3.7V9h3.27v11.45zM22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.23 0z" />
+                    </svg>
+                  </a>
+
+                  <a href={tiktokurl} target="_blank" rel="noopener noreferrer">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 256 256"
+                      fill="none"
+                    >
+                      <path
+                        d="M160 32c0 17.673 14.327 32 32 32 6.081 0 11.753-1.715 16.529-4.673v33.27a65.5 65.5 0 01-48.529-14.04v89.657a65.5 65.5 0 11-65.5-65.5c2.671 0 5.29.183 7.849.527v33.694a32 32 0 1032 32V32h25.651Z"
+                        fill="#000"
+                      />
                     </svg>
                   </a>
                 </div>

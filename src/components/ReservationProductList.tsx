@@ -50,7 +50,7 @@ const ReservationProduct: React.FC = () => {
           <div className="product-cart-wrap mb-30">
             <div className="product-img-action-wrap">
               <div className="product-img product-img-zoom">
-                <a>
+                <NavLink to={"/ReservationDetails?q=" + product.Product_id}>
                   <img
                     className="default-img resizeimg"
                     src={`${urlApp}${product.Picture}`}
@@ -61,15 +61,6 @@ const ReservationProduct: React.FC = () => {
                     src={`${urlApp}${product.Picture}`}
                     alt={product.Product_name + " hover"}
                   />
-                </a>
-              </div>
-              <div className="product-action-1">
-                <NavLink
-                  to={"/ReservationDetails?q=" + product.Product_id}
-                  aria-label="Aperçu rapide"
-                  className="action-btn hover-up"
-                >
-                  <i className="fi-rs-eye"></i>
                 </NavLink>
               </div>
             </div>

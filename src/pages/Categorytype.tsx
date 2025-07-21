@@ -47,7 +47,7 @@ function Categorytype() {
                 <a href="./" rel="nofollow">
                   Accueil
                 </a>
-                <span></span> Shop
+                <span></span> Collections
               </div>
             </div>
           </div>

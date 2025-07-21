@@ -35,7 +35,7 @@ function Index() {
                       aria-controls="tab-one"
                       aria-selected="true"
                     >
-                      Nos articles
+                      Nos collections
                     </button>
                   </li>
                 </ul>

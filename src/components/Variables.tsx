@@ -10,7 +10,8 @@ let urlAppApi = "https://inovsell.com/api/client/";
 let facebookurl = "";
 let twitterurl = "";
 let instagramurl = "";
-let youtubeurl = "";
+let tiktokurl = "";
+let linkedinurl = "";
 
 export {
   phoneNumber,
@@ -23,6 +24,7 @@ export {
   facebookurl,
   twitterurl,
   instagramurl,
-  youtubeurl,
+  tiktokurl,
+  linkedinurl,
   urlAppApi,
 };

@@ -1,6 +1,6 @@
 import { Carousel } from "react-bootstrap";
 import sliderFour from "../assets/imgs/banner/banner-5.jpg";
-import sliderFive from "../assets/imgs/banner/banner-7.jpg";
+//import sliderFive from "../assets/imgs/banner/banner-7.jpg";
 import sliderOne from "../assets/imgs/slider/slider-1.jpg";
 import sliderTwo from "../assets/imgs/slider/slider-2.jpg";
 import sliderThree from "../assets/imgs/slider/slider-3.jpg";
@@ -48,14 +48,17 @@ const Banner = () => {
             className="border-radius-10"
             src={sliderFour}
             alt="slide image"
+            style={{ width: "100%", height: "459px" }}
           />
         </div>
         <div className="banner-img banner-2">
+          {/*
           <img
             className="border-radius-10"
             src={sliderFive}
             alt="slide image"
           />
+          */}
         </div>
       </div>
     </>

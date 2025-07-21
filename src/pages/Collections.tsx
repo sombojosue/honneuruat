@@ -8,7 +8,7 @@ import axios from "axios";
 import ScrollToTop from "../components/ScrollToTop.tsx";
 import { urlAppApi } from "../components/Variables.tsx";
 
-function Shop() {
+function Collections() {
   type Subcategory = {
     Category_id: number;
     Category_Name: string;
@@ -47,7 +47,7 @@ function Shop() {
                 <a href="./" rel="nofollow">
                   Accueil
                 </a>
-                <span></span> Shop
+                <span></span> Collections
               </div>
             </div>
           </div>
@@ -93,4 +93,4 @@ function Shop() {
   );
 }
 
-export default Shop;
+export default Collections;

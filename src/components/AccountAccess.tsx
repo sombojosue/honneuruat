@@ -146,7 +146,7 @@ const LoginForm = ({ setActiveForm }: LoginFormProps) => {
           localStorage.setItem("userToken", result.account_token);
           localStorage.setItem("userAddress", result.address);
           // Optionally store token or redirect
-          navigate("/Shop");
+          navigate("/Collections");
         } else {
           setBtnOpacity(true);
           setMessage(
@@ -423,7 +423,7 @@ const RegisterForm = ({ setActiveForm }: LoginFormProps) => {
           .forEach((el) => el.remove());
         document.body.style.overflow = "auto";
 
-        navigate("/Shop");
+        navigate("/Collections");
       } else {
         setBtnOpacity(true);
         if (result.message == "Invalid empty username") {
