@@ -1,4 +1,4 @@
-let phoneNumber = "+243-820-988-188";
+let phoneNumber = "+243820988188";
 let email = "contact@inovsell.com";
 let address = "Boulevard sedwe réf. Kin Marche";
 let copyRight = "Honneur";
