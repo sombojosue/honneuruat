@@ -73,10 +73,12 @@ const ProfileText: React.FC = () => {
 
       if (result.success) {
         localStorage.setItem("userName", name);
+        /*
         localStorage.setItem(
           "userAvatar",
           "https://inovsell.com/profile/profile.png"
         );
+        */
         localStorage.setItem("userEmail", email);
         localStorage.setItem("userPhone", phone);
         localStorage.setItem("userToken", token);

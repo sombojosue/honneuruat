@@ -33,7 +33,7 @@ const MyModalLogOut: React.FC<MyModalProps> = ({ id, title, body }) => {
     alert("Vous avez été déconnecté avec succès. À bientôt !");
 
     // Optionally store token or redirect
-    navigate("/Shop");
+    navigate("/collections");
   };
 
   return (
