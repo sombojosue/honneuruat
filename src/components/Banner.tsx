@@ -48,7 +48,7 @@ const Banner = () => {
             className="border-radius-10"
             src={sliderFour}
             alt="slide image"
-            style={{ width: "100%", height: "459px" }}
+            style={{ width: "100%", height: "458px" }}
           />
         </div>
         <div className="banner-img banner-2">
