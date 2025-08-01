@@ -244,8 +244,8 @@ function Footer() {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
+                      width="20"
+                      height="20"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -355,12 +355,12 @@ function Footer() {
           <div className="col-lg-6">
             <p className="float-md-left font-sm text-muted mb-0">
               &copy; 2025, <strong className="text-brand">{copyRight}</strong>{" "}
-              E-commerce Platform{" "}
+              All rights reserved{" "}
             </p>
           </div>
           <div className="col-lg-6">
             <p className="text-lg-end text-start font-sm text-muted mb-0">
-              Designed par <a>{copyRight}</a>. All rights reserved
+              Powered par <a>{"BitAutomate"}</a>.
             </p>
           </div>
         </div>
