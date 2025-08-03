@@ -14,7 +14,7 @@ import {
 import logoOne from "../assets/imgs/theme/logoone.png";
 import heartShopping from "../assets/imgs/theme/icons/icon-heart.svg";
 import cartShopping from "../assets/imgs/theme/icons/icon-cart.svg";
-import logo from "../assets/imgs/theme/logo.svg";
+import logo from "../assets/imgs/theme/logo.png";
 import Modal from "./Modal.tsx";
 import axios from "axios";
 import "../assets/css/main.css";

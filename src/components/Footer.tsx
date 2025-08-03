@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../assets/css/main.css";
 import emailIcon from "../assets/imgs/theme/icons/email.svg";
-import logo from "../assets/imgs/theme/logo.svg";
+import logo from "../assets/imgs/theme/logo.png";
 import {
   phoneNumber,
   email,

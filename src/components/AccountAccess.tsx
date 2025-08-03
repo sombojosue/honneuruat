@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/imgs/theme/logo.svg";
+import logo from "../assets/imgs/theme/logo.png";
 import { urlAppApi } from "./Variables";
 import { urlApp } from "./Variables";
 
